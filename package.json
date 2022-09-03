@@ -1,5 +1,5 @@
 {
-  "name": "@notification/monorepo",
+  "name": "@notifier/monorepo",
   "version": "0.0.0",
   "license": "MIT",
   "private": "true",

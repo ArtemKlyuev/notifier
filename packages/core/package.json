@@ -1,10 +1,10 @@
 {
-  "name": "@notification/core",
+  "name": "@notifier/core",
   "version": "1.0.0",
   "license": "MIT",
   "private": "true",
   "devDependencies": {
-    "@notification/config": "*",
+    "@notifier/config": "*",
     "@swc/core": "1.2.246",
     "@swc/jest": "0.2.22",
     "@types/jest": "29.0.0",

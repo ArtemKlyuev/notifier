@@ -1,5 +1,5 @@
 {
-  "extends": "@notification/config/tsconfig.base.json",
+  "extends": "@notifier/config/tsconfig.base.json",
   "include": ["src"],
   "compilerOptions": {
     "baseUrl": "."
