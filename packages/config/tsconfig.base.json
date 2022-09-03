@@ -1,0 +1,22 @@
+{
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "esnext", "dom.iterable"],
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+  }
+}

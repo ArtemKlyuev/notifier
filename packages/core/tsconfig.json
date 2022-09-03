@@ -1,0 +1,7 @@
+{
+  "extends": "@notification/config/tsconfig.base.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}
