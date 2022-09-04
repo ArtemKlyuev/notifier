@@ -1,3 +1,4 @@
+import { EventEmitter } from '../EventEmitter';
 import { Timer } from '../Timer';
 
 interface BaseNotification<Payload> {
@@ -25,14 +26,19 @@ interface Options extends BaseOptions {
   poolSize: number;
 }
 
+type NotificationEvent = 'add' | 'remove';
+
+type Disposer = () => void;
+type Listener = () => void;
+
 // @ts-expect-error we don't need `poolSize` in default options
 const DEFAULT_OPTIONS: Options = {
   autoRemove: true,
   autoRemoveTimeout: 5000,
 };
 
-// TODO: add `subscribe` method
 export class Notifier<Payload> {
+  readonly #eventEmitter = new EventEmitter();
   readonly #queue: PreparedNotification<Payload>[] = [];
   #notifications: LaunchedNotification<Payload>[] = [];
   #options: Options;
@@ -98,16 +104,24 @@ export class Notifier<Payload> {
     const launchedNotification = this.#scheduleNotification(notification);
 
     this.#notifications.push(launchedNotification);
+    this.#eventEmitter.emit('add');
   }
 
   remove = (id: string | number): void => {
     this.#notifications = this.#notifications.filter((notification) => notification.id !== id);
+    this.#eventEmitter.emit('remove');
 
     if (this.#queue.length > 0) {
       const notification = this.#queue.shift()!;
       this.add(notification);
     }
   };
+
+  subscribe(event: NotificationEvent, listsner: Listener): Disposer {
+    const disposer = () => this.#eventEmitter.subscribe(event, listsner);
+
+    return disposer;
+  }
 
   get notifications(): LaunchedNotification<Payload>[] {
     return this.#notifications;
