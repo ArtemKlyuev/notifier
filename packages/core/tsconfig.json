@@ -1,7 +1,9 @@
 {
-  "extends": "@notifier/config/tsconfig.base.json",
-  "include": ["src"],
+  "extends": "../config/tsconfig.base.json",
+  "include": ["src", "esbuild.config.ts"],
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "importHelpers": false,
+    "esModuleInterop": true
   }
 }
