@@ -1,7 +1,6 @@
 {
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "target": "ESNext",
     "lib": ["dom", "esnext", "dom.iterable"],
     "downlevelIteration": true,
     "importHelpers": true,
@@ -17,6 +16,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   }
 }
