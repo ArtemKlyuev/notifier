@@ -3,11 +3,18 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": "true",
+  "scripts": {
+    "build": "ts-node esbuild.config.ts --swc"
+  },
   "devDependencies": {
-    "@notifier/config": "*",
     "@swc/core": "1.2.246",
     "@swc/jest": "0.2.22",
     "@types/jest": "29.0.0",
-    "jest": "29.0.2"
+    "@types/rimraf": "3.0.2",
+    "esbuild": "0.15.7",
+    "esbuild-plugin-d-ts-path-alias": "1.1.0",
+    "jest": "29.0.2",
+    "rimraf": "3.0.2",
+    "ts-node": "10.9.1"
   }
 }
