@@ -81,20 +81,6 @@ export class Notifier<Payload> {
     return { ...baseNotification, info: { timer } };
   }
 
-  #scheduleRemove(notification: PreparedNotification<Payload>): void {
-    const shouldRemove =
-      !notification.options.persist &&
-      (notification.options.autoRemove || this.#options.autoRemove);
-
-    if (!shouldRemove) {
-      return;
-    }
-
-    const removeTimeout = notification.options.autoRemoveTimeout ?? this.#options.autoRemoveTimeout;
-
-    setTimeout(this.remove, removeTimeout, notification.id);
-  }
-
   setOptions(options: Options): void {
     this.#validateOptions(options);
 
@@ -109,14 +95,9 @@ export class Notifier<Payload> {
       return;
     }
 
-    // const { options, ...baseNotification } = notification;
-
-    // const launchedNotification = { ...baseNotification };
-
     const launchedNotification = this.#scheduleNotification(notification);
 
     this.#notifications.push(launchedNotification);
-    // this.#scheduleRemove(notification);
   }
 
   remove = (id: string | number): void => {
