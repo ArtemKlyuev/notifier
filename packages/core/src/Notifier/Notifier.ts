@@ -1,4 +1,4 @@
-import { Timer } from './Timer';
+import { Timer } from '../Timer';
 
 interface BaseNotification<Payload> {
   id: string | number;
