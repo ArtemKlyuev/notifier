@@ -6,9 +6,9 @@ type Disposer = () => void;
 
 export class Timer {
   #interval!: NodeJS.Timer;
-  #countInterval = 10;
+  readonly #countInterval = 10;
   #countdownTime: number;
-  #eventEmitter = new EventEmitter();
+  readonly #eventEmitter = new EventEmitter();
 
   /**
    * @param countdownTime countdown time in milliseconds
