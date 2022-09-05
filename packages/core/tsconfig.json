@@ -2,6 +2,7 @@
   "extends": "../config/tsconfig.base.json",
   "include": ["src", "esbuild.config.ts"],
   "compilerOptions": {
+    "target": "ESNext",
     "baseUrl": ".",
     "importHelpers": false,
     "esModuleInterop": true
