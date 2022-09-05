@@ -1,0 +1,26 @@
+{
+  "name": "@notifier/react",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": "true",
+  "main": "dist/cjs/index.js",
+  "typings": "dist/typings/index.d.ts",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "ts-node esbuild.config.ts --swc"
+  },
+  "devDependencies": {
+    "@swc/core": "1.2.247",
+    "@swc/jest": "0.2.22",
+    "@types/jest": "29.0.0",
+    "@types/rimraf": "3.0.2",
+    "esbuild": "0.15.7",
+    "esbuild-plugin-d-ts-path-alias": "1.1.0",
+    "jest": "29.0.2",
+    "rimraf": "3.0.2",
+    "ts-node": "10.9.1"
+  }
+}
