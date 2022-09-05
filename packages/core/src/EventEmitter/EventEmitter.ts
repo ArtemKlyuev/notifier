@@ -12,7 +12,10 @@ export class EventEmitter {
     value: T,
   ): void {
     const listener = eventsStorage.get(event);
-    if (!listener) return;
+
+    if (!listener) {
+      return;
+    }
 
     const evaluateListener = (listener: EventEmitterListener) => listener(value);
     listener.forEach(evaluateListener);
