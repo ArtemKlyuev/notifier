@@ -46,7 +46,7 @@ export class Timer {
   }
 
   subscribe(event: TimerEvents, listener: EventListener): Disposer {
-    const dispose = () => this.#eventEmitter.subscribe(event, listener);
+    const dispose = this.#eventEmitter.subscribe(event, listener);
 
     return dispose;
   }
