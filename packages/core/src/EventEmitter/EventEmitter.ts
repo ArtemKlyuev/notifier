@@ -1,79 +1,85 @@
-type EventEmitterListener<T = any> = (value: T) => void;
+type EventHandler<T = any> = (value: T) => void;
 
-type EventsStorage = Map<string, Set<EventEmitterListener>>;
+type EventsStorage = Map<string, Set<EventHandler>>;
 
-export class EventEmitter {
-  private events: EventsStorage = new Map();
-  private onceEvents: EventsStorage = new Map();
+export interface EventEmitter<Events extends string> {
+  emit: <T>(event: Events, value?: T) => void;
+  subscribe: <T>(event: Events, listener: EventHandler<T>) => () => void;
+  subscribeOnce: <T>(event: Events, listener: EventHandler<T>) => void;
+  unsubscribe: <T>(event: Events, listener: EventHandler<T>) => void;
+  hasEvent: (event: Events) => boolean;
+  hasOnceEvent: (event: Events) => boolean;
+  clear: () => void;
+}
 
-  private emitEventListenersByStorage<T>(
-    eventsStorage: EventsStorage,
-    event: string,
-    value: T,
-  ): void {
+export class EventBus<Events extends string> implements EventEmitter<Events> {
+  readonly #events: EventsStorage = new Map();
+  readonly #onceEvents: EventsStorage = new Map();
+
+  #emitEventListenersByStorage<T>(eventsStorage: EventsStorage, event: string, value: T): void {
     const listener = eventsStorage.get(event);
 
     if (!listener) {
       return;
     }
 
-    const evaluateListener = (listener: EventEmitterListener) => listener(value);
+    const evaluateListener = (listener: EventHandler) => listener(value);
     listener.forEach(evaluateListener);
   }
 
-  emit<T>(event: string, value?: T): void {
-    this.emitEventListenersByStorage(this.events, event, value);
-    this.emitEventListenersByStorage(this.onceEvents, event, value);
+  emit<T>(event: Events, value?: T): void {
+    this.#emitEventListenersByStorage(this.#events, event, value);
+    this.#emitEventListenersByStorage(this.#onceEvents, event, value);
 
-    this.onceEvents.delete(event);
+    this.#onceEvents.delete(event);
   }
 
-  subscribe<T>(event: string, listener: EventEmitterListener<T>): () => void {
-    if (this.events.has(event)) {
-      const listenersSet = this.events.get(event)!;
+  subscribe<T>(event: Events, listener: EventHandler<T>): () => void {
+    if (this.#events.has(event)) {
+      const listenersSet = this.#events.get(event)!;
       listenersSet.add(listener);
     } else {
-      const listenersSet = new Set<EventEmitterListener<T>>();
+      const listenersSet = new Set<EventHandler<T>>();
       listenersSet.add(listener);
 
-      this.events.set(event, listenersSet);
+      this.#events.set(event, listenersSet);
     }
 
     return () => this.unsubscribe(event, listener);
   }
 
-  subscribeOnce<T>(event: string, listener: EventEmitterListener<T>): void {
-    if (this.onceEvents.has(event)) {
-      const listenersSet = this.onceEvents.get(event)!;
+  subscribeOnce<T>(event: Events, listener: EventHandler<T>): void {
+    if (this.#onceEvents.has(event)) {
+      const listenersSet = this.#onceEvents.get(event)!;
       listenersSet.add(listener);
       return;
     }
 
-    const listenersSet = new Set<EventEmitterListener<T>>();
+    const listenersSet = new Set<EventHandler<T>>();
     listenersSet.add(listener);
 
-    this.onceEvents.set(event, listenersSet);
+    this.#onceEvents.set(event, listenersSet);
   }
 
-  unsubscribe<T>(event: string, listener: EventEmitterListener<T>): void {
-    if (!this.events.has(event)) {
+  unsubscribe<T>(event: Events, listener: EventHandler<T>): void {
+    if (!this.#events.has(event)) {
       return;
     }
 
-    const listenersSet = this.events.get(event)!;
+    const listenersSet = this.#events.get(event)!;
     listenersSet.delete(listener);
   }
 
-  hasEvent(event: string): boolean {
-    return this.events.has(event);
+  hasEvent(event: Events): boolean {
+    return this.#events.has(event);
   }
 
-  hasOnceEvent(event: string): boolean {
-    return this.onceEvents.has(event);
+  hasOnceEvent(event: Events): boolean {
+    return this.#onceEvents.has(event);
   }
 
   clear(): void {
-    this.events.clear();
-    this.onceEvents.clear();
+    this.#events.clear();
+    this.#onceEvents.clear();
   }
 }

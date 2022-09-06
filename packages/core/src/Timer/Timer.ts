@@ -1,4 +1,4 @@
-import { EventEmitter } from '../EventEmitter';
+import { EventBus, EventEmitter } from '../EventEmitter';
 
 type TimerEvents = 'start' | 'tick' | 'pause' | 'end';
 type EventListener = () => void;
@@ -8,7 +8,7 @@ export class Timer {
   #interval!: NodeJS.Timer;
   readonly #countInterval = 10;
   #countdownTime: number;
-  readonly #eventEmitter = new EventEmitter();
+  readonly #eventEmitter: EventEmitter<TimerEvents> = new EventBus();
 
   /**
    * @param countdownTime countdown time in milliseconds

@@ -1,4 +1,4 @@
-import { EventEmitter } from '../EventEmitter';
+import { EventBus, EventEmitter } from '../EventEmitter';
 import { Timer } from '../Timer';
 import {
   BaseOptions,
@@ -19,7 +19,7 @@ const DEFAULT_OPTIONS: Options = {
 };
 
 export class Informer<Payload> implements Notifier<Payload> {
-  readonly #eventEmitter = new EventEmitter();
+  readonly #eventEmitter: EventEmitter<NotificationEvent> = new EventBus();
   readonly #queue: PreparedNotification<Payload>[] = [];
   #notifications: LaunchedNotification<Payload>[] = [];
   #options: Options;
