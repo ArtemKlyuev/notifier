@@ -1,6 +1,7 @@
+import fs from 'fs/promises';
+
 import { build, BuildOptions } from 'esbuild';
 import { dTSPathAliasPlugin } from 'esbuild-plugin-d-ts-path-alias';
-import rimraf from 'rimraf';
 
 import { devDependencies } from './package.json';
 
@@ -18,9 +19,9 @@ const baseOptions: BuildOptions = {
 };
 
 const start = async (): Promise<void> => {
-  rimraf.sync(DIST_DIR);
+  await fs.rm(DIST_DIR, { force: true, recursive: true });
 
-  await build({
+  build({
     ...baseOptions,
     splitting: true,
     format: 'esm',
@@ -28,7 +29,7 @@ const start = async (): Promise<void> => {
     plugins: [dTSPathAliasPlugin({ outputPath: `${DIST_DIR}/typings`, debug: true })],
   });
 
-  await build({
+  build({
     ...baseOptions,
     format: 'cjs',
     outdir: `${DIST_DIR}/cjs`,
