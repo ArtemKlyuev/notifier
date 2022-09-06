@@ -33,6 +33,7 @@ export type Handler = () => void;
 
 export interface Notifier<Payload> {
   readonly notifications: LaunchedNotification<Payload>[];
+  readonly options: Options;
   setOptions: (options: Options) => void;
   add: (notification: PreparedNotification<Payload>) => void;
   remove: (id: string | number) => void;
