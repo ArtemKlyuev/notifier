@@ -12,7 +12,8 @@
   "scripts": {
     "build": "ts-node esbuild.config.ts --swc",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:coverage": "yarn test --coverage"
   },
   "devDependencies": {
     "@swc/core": "1.2.247",
