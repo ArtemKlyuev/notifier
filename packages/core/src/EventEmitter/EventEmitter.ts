@@ -1,4 +1,4 @@
-type EventHandler<T = any> = (value: T) => void;
+type EventHandler<T = any> = (value?: T) => void;
 
 type EventsStorage = Map<string, Set<EventHandler>>;
 
