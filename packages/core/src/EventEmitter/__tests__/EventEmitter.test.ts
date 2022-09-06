@@ -31,7 +31,7 @@ describe('EventEmitter', () => {
   it('should emit event listener with argument', () => {
     const listener = jest.fn();
 
-    eventEmitter.subscribe('event1', (arg: string) => listener(arg));
+    eventEmitter.subscribe('event1', (arg?: string) => listener(arg));
     eventEmitter.emit('event1', 'hello world');
 
     expect(listener).toBeCalled();
@@ -89,6 +89,23 @@ describe('EventEmitter', () => {
     expect(listener).toHaveBeenCalledTimes(1);
 
     eventEmitter.unsubscribe('event1', listener);
+
+    eventEmitter.emit('event1');
+
+    expect(listener).toHaveBeenCalledTimes(1);
+  });
+
+  it('should do nothing when unsubscribing from non-existent event', () => {
+    const listener = jest.fn();
+
+    eventEmitter.subscribe('event1', listener);
+    eventEmitter.emit('event1');
+
+    expect(listener).toBeCalled();
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    eventEmitter.unsubscribe('event1', listener);
+    eventEmitter.unsubscribe('event2', listener);
 
     eventEmitter.emit('event1');
 
