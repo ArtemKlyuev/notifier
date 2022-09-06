@@ -9,11 +9,20 @@ export interface EventEmitter<Events extends string> {
   subscribe: <T>(event: Events, listener: EventHandler<T>) => () => void;
   unsubscribe: <T>(event: Events, listener: EventHandler<T>) => void;
   hasEvent: (event: Events) => boolean;
-  clear: () => void;
 }
 
 export class EventBus<Events extends string> implements EventEmitter<Events> {
   readonly #events: EventsStorage = new Map();
+
+  #addEventListener<T>(event: Events, listener: EventHandler<T>): void {
+    const listenersSet = this.#events.get(event)!;
+    listenersSet.add(listener);
+  }
+
+  #createEventListenersSet<T>(event: Events): void {
+    const listenersSet = new Set<EventHandler<T>>();
+    this.#events.set(event, listenersSet);
+  }
 
   emit<T>(event: Events, value?: T): void {
     const listener = this.#events.get(event);
@@ -27,15 +36,11 @@ export class EventBus<Events extends string> implements EventEmitter<Events> {
   }
 
   subscribe<T>(event: Events, listener: EventHandler<T>): Disposer {
-    if (this.#events.has(event)) {
-      const listenersSet = this.#events.get(event)!;
-      listenersSet.add(listener);
-    } else {
-      const listenersSet = new Set<EventHandler<T>>();
-      listenersSet.add(listener);
-
-      this.#events.set(event, listenersSet);
+    if (!this.#events.has(event)) {
+      this.#createEventListenersSet<EventHandler<T>>(event);
     }
+
+    this.#addEventListener(event, listener);
 
     return () => this.unsubscribe(event, listener);
   }
@@ -51,9 +56,5 @@ export class EventBus<Events extends string> implements EventEmitter<Events> {
 
   hasEvent(event: Events): boolean {
     return this.#events.has(event);
-  }
-
-  clear(): void {
-    this.#events.clear();
   }
 }
