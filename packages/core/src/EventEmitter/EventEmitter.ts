@@ -5,16 +5,13 @@ type EventsStorage = Map<string, Set<EventHandler>>;
 export interface EventEmitter<Events extends string> {
   emit: <T>(event: Events, value?: T) => void;
   subscribe: <T>(event: Events, listener: EventHandler<T>) => () => void;
-  subscribeOnce: <T>(event: Events, listener: EventHandler<T>) => void;
   unsubscribe: <T>(event: Events, listener: EventHandler<T>) => void;
   hasEvent: (event: Events) => boolean;
-  hasOnceEvent: (event: Events) => boolean;
   clear: () => void;
 }
 
 export class EventBus<Events extends string> implements EventEmitter<Events> {
   readonly #events: EventsStorage = new Map();
-  readonly #onceEvents: EventsStorage = new Map();
 
   #emitEventListenersByStorage<T>(eventsStorage: EventsStorage, event: string, value: T): void {
     const listener = eventsStorage.get(event);
@@ -29,9 +26,6 @@ export class EventBus<Events extends string> implements EventEmitter<Events> {
 
   emit<T>(event: Events, value?: T): void {
     this.#emitEventListenersByStorage(this.#events, event, value);
-    this.#emitEventListenersByStorage(this.#onceEvents, event, value);
-
-    this.#onceEvents.delete(event);
   }
 
   subscribe<T>(event: Events, listener: EventHandler<T>): () => void {
@@ -48,19 +42,6 @@ export class EventBus<Events extends string> implements EventEmitter<Events> {
     return () => this.unsubscribe(event, listener);
   }
 
-  subscribeOnce<T>(event: Events, listener: EventHandler<T>): void {
-    if (this.#onceEvents.has(event)) {
-      const listenersSet = this.#onceEvents.get(event)!;
-      listenersSet.add(listener);
-      return;
-    }
-
-    const listenersSet = new Set<EventHandler<T>>();
-    listenersSet.add(listener);
-
-    this.#onceEvents.set(event, listenersSet);
-  }
-
   unsubscribe<T>(event: Events, listener: EventHandler<T>): void {
     if (!this.#events.has(event)) {
       return;
@@ -74,12 +55,7 @@ export class EventBus<Events extends string> implements EventEmitter<Events> {
     return this.#events.has(event);
   }
 
-  hasOnceEvent(event: Events): boolean {
-    return this.#onceEvents.has(event);
-  }
-
   clear(): void {
     this.#events.clear();
-    this.#onceEvents.clear();
   }
 }
