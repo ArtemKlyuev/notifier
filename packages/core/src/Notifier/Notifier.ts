@@ -1,5 +1,5 @@
 import { EventBus, EventEmitter } from '../EventEmitter';
-import { Timekeeper, TimerEvents } from '../Timer';
+import { Timekeeper, Timer, TimerEvents } from '../Timer';
 import {
   BaseOptions,
   PreparedNotification,
@@ -11,21 +11,37 @@ import {
   Notifier,
 } from './types';
 
-const DEFAULT_OPTIONS: Options = {
+export const DEFAULT_OPTIONS: Options = {
   autoRemove: true,
   autoRemoveTimeout: 5000,
   size: 5,
   persist: false,
 };
 
+type TimerConstructor = new (
+  eventEmitter: EventEmitter<TimerEvents>,
+  countdownTime: number,
+) => Timer<TimerEvents>;
+
 export class Informer<Payload> implements Notifier<Payload> {
-  readonly #eventEmitter: EventEmitter<NotificationEvent | TimerEvents> = new EventBus();
+  // readonly #eventEmitter: EventEmitter<NotificationEvent | TimerEvents> = new EventBus();
+  readonly #eventEmitter: EventEmitter<NotificationEvent | TimerEvents>;
+  readonly #TimerConstructor: TimerConstructor;
   readonly #queue: PreparedNotification<Payload>[] = [];
   #notifications: LaunchedNotification<Payload>[] = [];
   #options: Options;
 
-  constructor(options: Options) {
-    this.#validateOptions(options);
+  constructor(
+    eventEmitter: EventEmitter<NotificationEvent | TimerEvents>,
+    TimerConstructor: TimerConstructor,
+    options?: Partial<Options>,
+  ) {
+    if (options) {
+      this.#validateOptions(options);
+    }
+
+    this.#eventEmitter = eventEmitter;
+    this.#TimerConstructor = TimerConstructor;
 
     this.#options = this.#mergeOptions(DEFAULT_OPTIONS, options);
   }
@@ -45,12 +61,13 @@ export class Informer<Payload> implements Notifier<Payload> {
     }
   }
 
-  #mergeOptions(prevOptions: Options, newOptions: Options): Options {
+  #mergeOptions(prevOptions: Options, newOptions?: Partial<Options>): Options {
     return { ...prevOptions, ...newOptions };
   }
 
-  #setupTimer(id: string | number, timeout: number): Timekeeper {
-    const timer = new Timekeeper(this.#eventEmitter, timeout);
+  #setupTimer(id: string | number, timeout: number): Timer<TimerEvents> {
+    // const timer = new Timekeeper(this.#eventEmitter, timeout);
+    const timer = new this.#TimerConstructor(this.#eventEmitter, timeout);
     timer.subscribe('end', () => this.remove(id));
     timer.start();
 
@@ -58,11 +75,11 @@ export class Informer<Payload> implements Notifier<Payload> {
   }
 
   #getLaunchedNotificationOptions(notificatonOptions?: Partial<BaseOptions>): BaseOptions {
-    if (!notificatonOptions) {
-      return this.#options;
-    }
-
     const { size, ...options } = this.#options;
+
+    if (!notificatonOptions) {
+      return options;
+    }
 
     if (notificatonOptions.autoRemove) {
       return { ...options, ...notificatonOptions, persist: false };
@@ -89,7 +106,7 @@ export class Informer<Payload> implements Notifier<Payload> {
     return { ...baseNotification, options: finalOptions, info: { timer } };
   }
 
-  setOptions = (options: Options): void => {
+  setOptions = (options: Partial<Options>): void => {
     this.#validateOptions(options);
 
     this.#options = this.#mergeOptions(this.#options, options);
@@ -129,5 +146,9 @@ export class Informer<Payload> implements Notifier<Payload> {
 
   get notifications(): LaunchedNotification<Payload>[] {
     return this.#notifications;
+  }
+
+  get options(): Options {
+    return this.#options;
   }
 }
