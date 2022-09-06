@@ -1,5 +1,5 @@
 import { EventBus, EventEmitter } from '../EventEmitter';
-import { Timer } from '../Timer';
+import { Timekeeper, TimerEvents } from '../Timer';
 import {
   BaseOptions,
   PreparedNotification,
@@ -19,7 +19,7 @@ const DEFAULT_OPTIONS: Options = {
 };
 
 export class Informer<Payload> implements Notifier<Payload> {
-  readonly #eventEmitter: EventEmitter<NotificationEvent> = new EventBus();
+  readonly #eventEmitter: EventEmitter<NotificationEvent | TimerEvents> = new EventBus();
   readonly #queue: PreparedNotification<Payload>[] = [];
   #notifications: LaunchedNotification<Payload>[] = [];
   #options: Options;
@@ -49,8 +49,8 @@ export class Informer<Payload> implements Notifier<Payload> {
     return { ...prevOptions, ...newOptions };
   }
 
-  #setupTimer(id: string | number, timeout: number): Timer {
-    const timer = new Timer(timeout);
+  #setupTimer(id: string | number, timeout: number): Timekeeper {
+    const timer = new Timekeeper(this.#eventEmitter, timeout);
     timer.subscribe('end', () => this.remove(id));
     timer.start();
 

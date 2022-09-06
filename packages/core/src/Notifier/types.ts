@@ -1,4 +1,4 @@
-import { Timer } from '../Timer';
+import { Timer, TimerEvents } from '../Timer';
 
 interface BaseNotification<Payload> {
   id: string | number;
@@ -12,7 +12,7 @@ export interface PreparedNotification<Payload> extends BaseNotification<Payload>
 export interface LaunchedNotification<Payload> extends BaseNotification<Payload> {
   options: BaseOptions;
   info: {
-    timer: Timer | null;
+    timer: Timer<TimerEvents> | null;
   };
 }
 

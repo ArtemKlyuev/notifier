@@ -1,19 +1,28 @@
-import { EventBus, EventEmitter } from '../EventEmitter';
+import { EventEmitter } from '../EventEmitter';
 
-type TimerEvents = 'start' | 'tick' | 'pause' | 'end';
-type EventListener = () => void;
+export type TimerEvents = 'start' | 'tick' | 'pause' | 'end';
+type Handler = () => void;
 type Disposer = () => void;
 
-export class Timer {
+export interface Timer<Events extends string> {
+  readonly timeLeft: number;
+  start: () => void;
+  pause: () => void;
+  subscribe: (event: Events, handler: Handler) => Disposer;
+}
+
+export class Timekeeper implements Timer<TimerEvents> {
   #interval!: NodeJS.Timer;
   readonly #countInterval = 10;
   #countdownTime: number;
-  readonly #eventEmitter: EventEmitter<TimerEvents> = new EventBus();
+  readonly #eventEmitter: EventEmitter<TimerEvents>;
 
   /**
+   * @param eventEmitter event emitter
    * @param countdownTime countdown time in milliseconds
    */
-  constructor(countdownTime: number) {
+  constructor(eventEmitter: EventEmitter<TimerEvents>, countdownTime: number) {
+    this.#eventEmitter = eventEmitter;
     this.#countdownTime = countdownTime;
   }
 
@@ -33,7 +42,7 @@ export class Timer {
     this.#clearInterval();
   };
 
-  start() {
+  start(): void {
     this.#eventEmitter.emit('start');
 
     this.#interval = setInterval(this.#tick, this.#countInterval);
@@ -45,8 +54,8 @@ export class Timer {
     this.#clearInterval();
   }
 
-  subscribe(event: TimerEvents, listener: EventListener): Disposer {
-    const dispose = this.#eventEmitter.subscribe(event, listener);
+  subscribe(event: TimerEvents, handler: Handler): Disposer {
+    const dispose = this.#eventEmitter.subscribe(event, handler);
 
     return dispose;
   }
