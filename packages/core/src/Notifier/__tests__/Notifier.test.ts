@@ -1,38 +1,18 @@
 import { eventEmitterMock } from '../../EventEmitter/__mocks__';
 
 import { Timekeeper } from '../../Timer';
-// import { timerMock } from '../../Timer/__mocks__';
 
 import { Informer, DEFAULT_OPTIONS } from '../Notifier';
 import { Notifier } from '../types';
 
-// jest.mock('../../Timer/Timer.ts', () => jest.fn());
 jest.mock('../../Timer/Timer.ts');
-// jest.mock('../../Timer/Timer.ts', function () {
-//   return jest.fn();
-// });
 
-console.log('Timekeeper', Timekeeper);
-
-// Timekeeper.mockImplementation(function () {
-//   return {
-//     start: jest.fn(),
-//   };
-// });
 describe('Notifier', () => {
   let notifier: Notifier<any>;
 
   beforeEach(() => {
     // TODO: mock timer
-    notifier = new Informer(
-      eventEmitterMock,
-      Timekeeper,
-      // Timekeeper.mockImplementation(function () {
-      //   return {
-      //     start: jest.fn(),
-      //   };
-      // }),
-    );
+    notifier = new Informer(eventEmitterMock, Timekeeper);
   });
 
   it('should set default options', () => {
@@ -79,18 +59,17 @@ describe('Notifier', () => {
     notifier.add(notification);
 
     expect(notifier.notifications).toHaveLength(1);
-    console.log('notifier.notifications[0]', notifier.notifications[0]);
-    console.log('typeof notifier.notifications[0]', typeof notifier.notifications[0]);
-    expect(notifier.notifications[0]).toStrictEqual({
-      ...notification,
-      options: {
-        autoRemove: true,
-        autoRemoveTimeout: 5000,
-        persist: false,
-      },
-      info: { timer: new Timekeeper(eventEmitterMock) },
-      // info: { timer: new Timekeeper(eventEmitterMock, 5000) },
-      // info: { timer: new Timekeeper(eventEmitterMock, 300) },
-    });
+
+    expect(JSON.stringify(notifier.notifications[0])).toStrictEqual(
+      JSON.stringify({
+        ...notification,
+        options: {
+          autoRemove: true,
+          autoRemoveTimeout: 5000,
+          persist: false,
+        },
+        info: { timer: new Timekeeper(eventEmitterMock, 5000) },
+      }),
+    );
   });
 });
