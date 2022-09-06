@@ -10,7 +10,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "ts-node esbuild.config.ts --swc"
+    "build": "ts-node esbuild.config.ts --swc",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@swc/core": "1.2.247",
