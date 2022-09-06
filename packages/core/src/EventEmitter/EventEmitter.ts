@@ -15,8 +15,8 @@ export interface EventEmitter<Events extends string> {
 export class EventBus<Events extends string> implements EventEmitter<Events> {
   readonly #events: EventsStorage = new Map();
 
-  #emitEventListenersByStorage<T>(eventsStorage: EventsStorage, event: string, value: T): void {
-    const listener = eventsStorage.get(event);
+  emit<T>(event: Events, value?: T): void {
+    const listener = this.#events.get(event);
 
     if (!listener) {
       return;
@@ -24,10 +24,6 @@ export class EventBus<Events extends string> implements EventEmitter<Events> {
 
     const evaluateListener = (listener: EventHandler) => listener(value);
     listener.forEach(evaluateListener);
-  }
-
-  emit<T>(event: Events, value?: T): void {
-    this.#emitEventListenersByStorage(this.#events, event, value);
   }
 
   subscribe<T>(event: Events, listener: EventHandler<T>): Disposer {
