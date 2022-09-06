@@ -2,6 +2,8 @@ type EventHandler<T = any> = (value: T) => void;
 
 type EventsStorage = Map<string, Set<EventHandler>>;
 
+type Disposer = () => void;
+
 export interface EventEmitter<Events extends string> {
   emit: <T>(event: Events, value?: T) => void;
   subscribe: <T>(event: Events, listener: EventHandler<T>) => () => void;
@@ -28,7 +30,7 @@ export class EventBus<Events extends string> implements EventEmitter<Events> {
     this.#emitEventListenersByStorage(this.#events, event, value);
   }
 
-  subscribe<T>(event: Events, listener: EventHandler<T>): () => void {
+  subscribe<T>(event: Events, listener: EventHandler<T>): Disposer {
     if (this.#events.has(event)) {
       const listenersSet = this.#events.get(event)!;
       listenersSet.add(listener);
