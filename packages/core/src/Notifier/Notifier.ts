@@ -1,43 +1,24 @@
 import { EventEmitter } from '../EventEmitter';
 import { Timer } from '../Timer';
+import {
+  BaseOptions,
+  PreparedNotification,
+  LaunchedNotification,
+  NotificationEvent,
+  Options,
+  Handler,
+  Disposer,
+  Notifier,
+} from './types';
 
-interface BaseNotification<Payload> {
-  id: string | number;
-  payload: Payload;
-}
-
-export interface PreparedNotification<Payload> extends BaseNotification<Payload> {
-  options?: BaseOptions;
-}
-
-export interface LaunchedNotification<Payload> extends BaseNotification<Payload> {
-  info: {
-    timer: Timer | null;
-  };
-}
-
-interface BaseOptions {
-  autoRemove?: boolean;
-  autoRemoveTimeout?: number;
-  persist?: boolean;
-}
-
-export interface Options extends BaseOptions {
-  poolSize: number;
-}
-
-export type NotificationEvent = 'add' | 'remove';
-
-export type Disposer = () => void;
-export type Listener = () => void;
-
-// @ts-expect-error we don't need `poolSize` in default options
 const DEFAULT_OPTIONS: Options = {
   autoRemove: true,
   autoRemoveTimeout: 5000,
+  size: 5,
+  persist: false,
 };
 
-export class Notifier<Payload> {
+export class Informer<Payload> implements Notifier<Payload> {
   readonly #eventEmitter = new EventEmitter();
   readonly #queue: PreparedNotification<Payload>[] = [];
   #notifications: LaunchedNotification<Payload>[] = [];
@@ -49,8 +30,12 @@ export class Notifier<Payload> {
     this.#options = this.#mergeOptions(DEFAULT_OPTIONS, options);
   }
 
+  get #isNotificationsFilled(): boolean {
+    return this.#notifications.length === this.#options.size;
+  }
+
   // TODO: Split method into `isValid` and `Validate`
-  #validateOptions(options: BaseOptions): void {
+  #validateOptions(options: Partial<Options>): void {
     if (options.autoRemove && options.persist) {
       throw new Error('Notifier: Unable to use "autoRemove" and "persist" options together');
     }
@@ -64,28 +49,44 @@ export class Notifier<Payload> {
     return { ...prevOptions, ...newOptions };
   }
 
-  #isNotificationsPoolFilled(): boolean {
-    return this.#notifications.length === this.#options.poolSize;
-  }
-
-  #scheduleNotification(
-    notification: PreparedNotification<Payload>,
-  ): LaunchedNotification<Payload> {
-    const { options, ...baseNotification } = notification;
-
-    const shouldRemove = !options?.persist && (options?.autoRemove || this.#options.autoRemove);
-
-    if (!shouldRemove) {
-      return { ...baseNotification, info: { timer: null } };
-    }
-
-    const removeTimeout = options?.autoRemoveTimeout ?? this.#options.autoRemoveTimeout;
-
-    const timer = new Timer(removeTimeout!);
-    timer.subscribe('end', () => this.remove(baseNotification.id));
+  #setupTimer(id: string | number, timeout: number): Timer {
+    const timer = new Timer(timeout);
+    timer.subscribe('end', () => this.remove(id));
     timer.start();
 
-    return { ...baseNotification, info: { timer } };
+    return timer;
+  }
+
+  #getLaunchedNotificationOptions(notificatonOptions?: Partial<BaseOptions>): BaseOptions {
+    if (!notificatonOptions) {
+      return this.#options;
+    }
+
+    const { size, ...options } = this.#options;
+
+    if (notificatonOptions.autoRemove) {
+      return { ...options, ...notificatonOptions, persist: false };
+    }
+
+    if (notificatonOptions.persist) {
+      return { ...options, ...notificatonOptions, autoRemove: false };
+    }
+
+    return { ...this.#options, ...notificatonOptions };
+  }
+
+  #setupNotification(notification: PreparedNotification<Payload>): LaunchedNotification<Payload> {
+    const { options, ...baseNotification } = notification;
+
+    const finalOptions = this.#getLaunchedNotificationOptions(options);
+
+    if (!finalOptions.autoRemove) {
+      return { ...baseNotification, options: finalOptions, info: { timer: null } };
+    }
+
+    const timer = this.#setupTimer(baseNotification.id, finalOptions.autoRemoveTimeout);
+
+    return { ...baseNotification, options: finalOptions, info: { timer } };
   }
 
   setOptions = (options: Options): void => {
@@ -99,12 +100,12 @@ export class Notifier<Payload> {
       this.#validateOptions(notification.options);
     }
 
-    if (this.#isNotificationsPoolFilled()) {
+    if (this.#isNotificationsFilled) {
       this.#queue.push(notification);
       return;
     }
 
-    const launchedNotification = this.#scheduleNotification(notification);
+    const launchedNotification = this.#setupNotification(notification);
 
     this.#notifications.push(launchedNotification);
     this.#eventEmitter.emit('add');
@@ -120,8 +121,8 @@ export class Notifier<Payload> {
     }
   };
 
-  subscribe(event: NotificationEvent, listener: Listener): Disposer {
-    const disposer = this.#eventEmitter.subscribe(event, listener);
+  subscribe(event: NotificationEvent, handler: Handler): Disposer {
+    const disposer = this.#eventEmitter.subscribe(event, handler);
 
     return disposer;
   }
