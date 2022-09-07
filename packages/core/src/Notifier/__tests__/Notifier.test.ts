@@ -132,7 +132,7 @@ describe('Notifier', () => {
     expect(addListener).toHaveBeenCalledTimes(1);
   });
 
-  it('should return "disposer" function when subscribing to "add" event', () => {
+  it('should dispose event', () => {
     const notification = { id: 1, payload: 'Notification' };
     const addListener = jest.fn();
 
@@ -155,9 +155,13 @@ describe('Notifier', () => {
     });
 
     const dispose = notifier.subscribe('add', addListener);
+
     expect(addListener).not.toHaveBeenCalled();
+
     dispose();
+
     notifier.add(notification);
+
     expect(addListener).not.toHaveBeenCalled();
   });
 
