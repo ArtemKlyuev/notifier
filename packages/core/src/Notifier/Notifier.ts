@@ -1,5 +1,5 @@
-import { EventBus, EventEmitter } from '../EventEmitter';
-import { Timekeeper, Timer, TimerEvents } from '../Timer';
+import { EventEmitter } from '../EventEmitter';
+import { Timer, TimerEvents } from '../Timer';
 import {
   BaseOptions,
   PreparedNotification,
@@ -24,7 +24,6 @@ type TimerConstructor = new (
 ) => Timer<TimerEvents>;
 
 export class Informer<Payload> implements Notifier<Payload> {
-  // readonly #eventEmitter: EventEmitter<NotificationEvent | TimerEvents> = new EventBus();
   readonly #eventEmitter: EventEmitter<NotificationEvent | TimerEvents>;
   readonly #TimerConstructor: TimerConstructor;
   readonly #queue: PreparedNotification<Payload>[] = [];
