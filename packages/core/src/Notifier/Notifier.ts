@@ -50,13 +50,22 @@ export class Informer<Payload> implements Notifier<Payload> {
     return this.#notifications.length === this.#options.size;
   }
 
+  #isBoolean(value: any): value is boolean {
+    return typeof value === 'boolean';
+  }
+
   // TODO: Split method into `isValid` and `Validate`
   #validateOptions(options: Partial<Options>): void {
     if (options.autoRemove && options.persist) {
       throw new Error('Notifier: Unable to use "autoRemove" and "persist" options together');
     }
 
-    if (!options.autoRemove && !options.persist) {
+    if (
+      this.#isBoolean(options.autoRemove) &&
+      this.#isBoolean(options.persist) &&
+      !options.autoRemove &&
+      !options.persist
+    ) {
       throw new Error('Notifier: Options "autoRemove" and "persist" can\'t be both "false"');
     }
   }
@@ -85,11 +94,19 @@ export class Informer<Payload> implements Notifier<Payload> {
       return { ...options, ...notificatonOptions, persist: false };
     }
 
+    if (this.#isBoolean(notificatonOptions.autoRemove) && !notificatonOptions.autoRemove) {
+      return { ...options, ...notificatonOptions, persist: true };
+    }
+
     if (notificatonOptions.persist) {
       return { ...options, ...notificatonOptions, autoRemove: false };
     }
 
-    return { ...this.#options, ...notificatonOptions };
+    if (this.#isBoolean(notificatonOptions.persist) && !notificatonOptions.persist) {
+      return { ...options, ...notificatonOptions, autoRemove: true };
+    }
+
+    return { ...options, ...notificatonOptions };
   }
 
   #setupNotification(notification: PreparedNotification<Payload>): LaunchedNotification<Payload> {
