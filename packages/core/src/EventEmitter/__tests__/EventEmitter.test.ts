@@ -19,6 +19,10 @@ describe('EventEmitter', () => {
     expect(eventEmitter.hasEvent('event1')).toBe(true);
   });
 
+  it('should not emit event listener if there is no such event ', () => {
+    expect(() => eventEmitter.emit('event1')).not.toThrow();
+  });
+
   it('should emit event listener', () => {
     const listener = jest.fn();
 
