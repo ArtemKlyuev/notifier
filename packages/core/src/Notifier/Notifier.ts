@@ -18,21 +18,18 @@ export const DEFAULT_OPTIONS: Options = {
   persist: false,
 };
 
-type TimerConstructor = new (
-  eventEmitter: EventEmitter<TimerEvents>,
-  countdownTime: number,
-) => Timer<TimerEvents>;
+type TimerFactory = (timeout: number) => Timer<TimerEvents>;
 
 export class Informer<Payload> implements Notifier<Payload> {
   readonly #eventEmitter: EventEmitter<NotificationEvent | TimerEvents>;
-  readonly #TimerConstructor: TimerConstructor;
+  readonly #timerFactory: TimerFactory;
   readonly #queue: PreparedNotification<Payload>[] = [];
   #notifications: LaunchedNotification<Payload>[] = [];
   #options: Options;
 
   constructor(
     eventEmitter: EventEmitter<NotificationEvent | TimerEvents>,
-    TimerConstructor: TimerConstructor,
+    timerFactory: TimerFactory,
     options?: Partial<Options>,
   ) {
     if (options) {
@@ -40,7 +37,7 @@ export class Informer<Payload> implements Notifier<Payload> {
     }
 
     this.#eventEmitter = eventEmitter;
-    this.#TimerConstructor = TimerConstructor;
+    this.#timerFactory = timerFactory;
 
     this.#options = this.#mergeOptions(DEFAULT_OPTIONS, options);
   }
@@ -74,8 +71,7 @@ export class Informer<Payload> implements Notifier<Payload> {
   }
 
   #setupTimer(id: string | number, timeout: number): Timer<TimerEvents> {
-    // const timer = new Timekeeper(this.#eventEmitter, timeout);
-    const timer = new this.#TimerConstructor(this.#eventEmitter, timeout);
+    const timer = this.#timerFactory(timeout);
     timer.subscribe('end', () => this.remove(id));
     timer.start();
 
