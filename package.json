@@ -7,7 +7,8 @@
     "packages/*"
   ],
   "scripts": {
-    "package:core": "yarn workspace @notifier/core"
+    "package:core": "yarn workspace @notifier/core",
+    "package:react": "yarn workspace @notifier/react"
   },
   "devDependencies": {
     "prettier": "2.7.1",
