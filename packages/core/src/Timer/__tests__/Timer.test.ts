@@ -46,31 +46,51 @@ describe('Timer', () => {
     expect(timer.timeLeft).toBe(timeAfterPause);
   });
 
-  it('should subscribe to timer events', () => {
+  it('should subscribe to "start" events', () => {
     const listener = jest.fn();
 
     timer.subscribe('start', listener);
 
     expect(eventEmitterMock.subscribe).toHaveBeenCalledTimes(1);
     expect(eventEmitterMock.subscribe).toBeCalledWith('start', listener);
+  });
+
+  it('should subscribe to "pause" events', () => {
+    const listener = jest.fn();
 
     timer.subscribe('pause', listener);
 
-    expect(eventEmitterMock.subscribe).toHaveBeenCalledTimes(2);
+    expect(eventEmitterMock.subscribe).toHaveBeenCalledTimes(1);
     expect(eventEmitterMock.subscribe).toBeCalledWith('pause', listener);
+  });
+
+  it('should subscribe to "tick" events', () => {
+    const listener = jest.fn();
 
     timer.subscribe('tick', listener);
 
-    expect(eventEmitterMock.subscribe).toHaveBeenCalledTimes(3);
-    expect(eventEmitterMock.subscribe).toBeCalledWith('start', listener);
+    expect(eventEmitterMock.subscribe).toHaveBeenCalledTimes(1);
+    expect(eventEmitterMock.subscribe).toBeCalledWith('tick', listener);
+  });
+
+  it('should subscribe to "end" events', () => {
+    const listener = jest.fn();
 
     timer.subscribe('end', listener);
 
-    expect(eventEmitterMock.subscribe).toHaveBeenCalledTimes(4);
-    expect(eventEmitterMock.subscribe).toBeCalledWith('start', listener);
+    expect(eventEmitterMock.subscribe).toHaveBeenCalledTimes(1);
+    expect(eventEmitterMock.subscribe).toBeCalledWith('end', listener);
   });
 
-  it('should emit `start` event', () => {
+  it('should emit "start" event', () => {
+    timer.subscribe('start', () => {});
+
+    timer.start();
+
+    expect(eventEmitterMock.emit).toBeCalledWith('start');
+  });
+
+  it('should emit "start" event listener', () => {
     const listener = jest.fn();
     eventEmitterMock.emit.mockImplementationOnce((event) => {
       if (event === 'start') {
@@ -84,11 +104,19 @@ describe('Timer', () => {
 
     timer.start();
 
-    expect(eventEmitterMock.emit).toBeCalledWith('start');
     expect(listener).toBeCalledTimes(1);
   });
 
-  it('should emit `pause` event', () => {
+  it('should emit "pause" event', () => {
+    timer.subscribe('pause', () => {});
+    timer.start();
+
+    timer.pause();
+
+    expect(eventEmitterMock.emit).toBeCalledWith('pause');
+  });
+
+  it('should emit "pause" event listener', () => {
     const listener = jest.fn();
     eventEmitterMock.emit.mockImplementation((event) => {
       if (event === 'pause') {
@@ -99,16 +127,23 @@ describe('Timer', () => {
     timer.subscribe('pause', listener);
     timer.start();
 
-    expect(eventEmitterMock.emit).toBeCalledWith('start');
     expect(listener).toBeCalledTimes(0);
 
     timer.pause();
 
-    expect(eventEmitterMock.emit).toBeCalledWith('pause');
     expect(listener).toBeCalledTimes(1);
   });
 
-  it('should emit `tick` event', async () => {
+  it('should emit "tick" event', () => {
+    timer.subscribe('tick', () => {});
+    timer.start();
+
+    jest.advanceTimersByTime(100);
+
+    expect(eventEmitterMock.emit).toBeCalledWith('tick');
+  });
+
+  it('should emit "tick" event listener', () => {
     const listener = jest.fn();
     eventEmitterMock.emit.mockImplementation((event) => {
       if (event === 'tick') {
@@ -123,11 +158,19 @@ describe('Timer', () => {
 
     jest.advanceTimersByTime(100);
 
-    expect(eventEmitterMock.emit).toBeCalledWith('tick');
     expect(listener.mock.calls.length).toBeGreaterThan(2);
   });
 
-  it('should emit `end` event', () => {
+  it('should emit "end" event', () => {
+    timer.subscribe('end', () => {});
+    timer.start();
+
+    jest.runAllTimers();
+
+    expect(eventEmitterMock.emit).toBeCalledWith('end');
+  });
+
+  it('should emit "end" event listener', () => {
     const listener = jest.fn();
     eventEmitterMock.emit.mockImplementation((event) => {
       if (event === 'end') {
@@ -142,7 +185,22 @@ describe('Timer', () => {
 
     jest.runAllTimers();
 
-    expect(eventEmitterMock.emit).toBeCalledWith('end');
     expect(listener).toBeCalledTimes(1);
+  });
+
+  it('should clear timer', () => {
+    timer.start();
+
+    jest.advanceTimersByTime(100);
+
+    timer.clear();
+
+    const time1 = timer.timeLeft;
+
+    jest.advanceTimersByTime(100);
+
+    const time2 = timer.timeLeft;
+
+    expect(time1).toBe(time2);
   });
 });
