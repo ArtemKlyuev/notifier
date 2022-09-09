@@ -1,5 +1,5 @@
 {
-  "extends": "../config/tsconfig.base.json",
+  "extends": "../common/tsconfig.base.json",
   "include": ["src", "esbuild.config.ts"],
   "compilerOptions": {
     "target": "ESNext",
