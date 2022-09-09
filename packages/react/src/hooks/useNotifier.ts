@@ -1,22 +1,25 @@
-import { useState, useMemo, useEffect } from 'react';
-import { Notifier, Options, LaunchedNotification } from '@notifier/core';
+import { useState, useEffect } from 'react';
+import { LaunchedNotification, NotificationEvent } from '@notifier/core';
 
-export const useNotifier = () => {
-  const notifier = useMemo(
-    () => new Notifier<string>({ poolSize: 5, autoRemove: true, autoRemoveTimeout: 3000 }),
-    [],
-  );
+import { useNotifierContext } from './useContext';
 
-  const [notifications, setNotifications] = useState<LaunchedNotification<string>[]>([]);
+const notifierEvents: NotificationEvent[] = ['add', 'remove'];
+
+export const useNotifier = <Payload>() => {
+  const notifier = useNotifierContext<Payload>();
+
+  const [notifications, setNotifications] = useState<LaunchedNotification<Payload>[]>([]);
 
   useEffect(() => {
-    notifier.subscribe('add', () => {
-      console.log('add');
-      setNotifications([...notifier.notifications]);
-    });
-    notifier.subscribe('remove', () => {
-      setNotifications([...notifier.notifications]);
-    });
+    const updateNotififcations = () => setNotifications([...notifier.notifications]);
+
+    const disposers = notifierEvents.map((event) =>
+      notifier.subscribe(event, updateNotififcations),
+    );
+
+    return () => {
+      disposers.forEach((dispose) => dispose());
+    };
   }, []);
 
   return { notifications, add: notifier.add, remove: notifier.remove };
