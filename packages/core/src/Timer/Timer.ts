@@ -8,6 +8,7 @@ export interface Timer<Events extends string> {
   readonly timeLeft: number;
   start: () => void;
   pause: () => void;
+  clear: () => void;
   subscribe: (event: Events, handler: Handler) => Disposer;
 }
 
@@ -51,6 +52,10 @@ export class Timekeeper implements Timer<TimerEvents> {
   pause(): void {
     this.#eventEmitter.emit('pause');
 
+    this.#clearInterval();
+  }
+
+  clear(): void {
     this.#clearInterval();
   }
 

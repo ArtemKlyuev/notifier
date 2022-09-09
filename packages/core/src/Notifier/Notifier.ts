@@ -141,6 +141,9 @@ export class Informer<Payload> implements Notifier<Payload> {
   };
 
   remove = (id: string | number): void => {
+    const notification = this.#notifications.find((notification) => notification.id === id);
+    notification?.info.timer?.clear();
+
     this.#notifications = this.#notifications.filter((notification) => notification.id !== id);
     this.#eventEmitter.emit('remove');
 
