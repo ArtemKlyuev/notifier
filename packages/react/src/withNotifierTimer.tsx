@@ -1,0 +1,21 @@
+import React from 'react';
+
+import { LaunchedNotification } from '@notifier/core';
+import { useNotifierTimer } from './hooks';
+
+interface Notification<Payload> {
+  notification: LaunchedNotification<Payload>;
+}
+
+interface TimerProps {
+  time: number | undefined;
+}
+
+export const withNotifierTimer =
+  <Props, Payload>(WrappedComponent: React.ComponentType<Props & TimerProps>) =>
+  ({ notification, ...props }: Props & Notification<Payload>) => {
+    const time = useNotifierTimer(notification);
+
+    // @ts-expect-error
+    return <WrappedComponent time={time} {...props} />;
+  };
