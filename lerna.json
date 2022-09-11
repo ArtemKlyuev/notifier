@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "useNx": true,
+  "useWorkspaces": true,
+  "version": "independent",
+  "npmClient": "yarn",
+  "ignoreChanges": ["**/__fixtures__/**", "**/__tests__/**", "**/__mocks__/**"],
+  "command": {
+    "version": {
+      "allowBranch": "main"
+    }
+  },
+  "changelogPreset": {
+    "name": "conventionalcommits",
+    "types": [
+      { "type": "feat", "section": "✨ Features ✨" },
+      { "type": "fix", "section": "🐛 Bug fixes 🐛" },
+      { "type": "docs", "hidden": true, "section": "📖 Docs 📖" },
+      { "type": "deps", "hidden": true, "section": "💉 Dependencies 💉" },
+      { "type": "refactor", "hidden": true, "section": "🔧 Code refactoring 🔧" },
+      { "type": "perf", "hidden": true, "section": "🚀 Perfomance 🚀" },
+      { "type": "chore", "hidden": true },
+      { "type": "test", "hidden": true }
+    ]
+  }
+}
