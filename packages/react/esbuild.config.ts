@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 
 import { build, BuildOptions } from 'esbuild';
 import { dTSPathAliasPlugin } from 'esbuild-plugin-d-ts-path-alias';

@@ -12,6 +12,7 @@
     "package:react": "yarn workspace @notifier/react"
   },
   "devDependencies": {
+    "@types/node": "16.11.58",
     "cz-customizable": "7.0.0",
     "prettier": "2.7.1",
     "typescript": "4.8.2"
