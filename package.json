@@ -7,10 +7,12 @@
     "packages/*"
   ],
   "scripts": {
+    "cm": "./node_modules/cz-customizable/standalone.js",
     "package:core": "yarn workspace @notifier/core",
     "package:react": "yarn workspace @notifier/react"
   },
   "devDependencies": {
+    "cz-customizable": "7.0.0",
     "prettier": "2.7.1",
     "typescript": "4.8.2"
   }
