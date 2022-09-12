@@ -123,10 +123,9 @@ describe('Notifier', () => {
 
   it('should emit "add" event when push notification happened', () => {
     const notification = { id: 1, payload: 'Notification' };
-    const addListener = jest.fn();
 
     expect(eventEmitterMock.emit).not.toHaveBeenCalled();
-    notifier.subscribe('add', addListener);
+    notifier.subscribe('add', () => {});
     notifier.add(notification);
     expect(eventEmitterMock.emit).toHaveBeenCalledTimes(1);
     expect(eventEmitterMock.emit).toBeCalledWith('add');
@@ -220,6 +219,22 @@ describe('Notifier', () => {
   });
 
   it('should emit "remove" event when manually remove notification', () => {
+    const notification = {
+      id: 1,
+      payload: 'Notification',
+    };
+
+    notifier.subscribe('remove', () => {});
+    notifier.add(notification);
+
+    expect(eventEmitterMock.emit).not.toHaveBeenCalledWith('remove');
+
+    notifier.remove(1);
+
+    expect(eventEmitterMock.emit).toHaveBeenCalledWith('remove');
+  });
+
+  it('should emit "remove" event listener when manually remove notification', () => {
     type Listener = () => void;
 
     const removeListener = jest.fn();
@@ -291,48 +306,19 @@ describe('Notifier', () => {
   });
 
   it('should emit "remove" event when auto remove notification', () => {
-    type Listener = () => void;
-
-    const removeListener = jest.fn();
-
-    const endEventListeners: Listener[] = [];
-    const removeEventListeners: Listener[] = [];
-
-    eventEmitterMock.subscribe.mockImplementation((event, listener) => {
-      if (event === 'end') {
-        endEventListeners.push(listener);
-      }
-
-      if (event === 'remove') {
-        removeEventListeners.push(listener);
-      }
-
-      return () => {};
-    });
-
-    eventEmitterMock.emit.mockImplementation((event) => {
-      if (event === 'end') {
-        endEventListeners.forEach((listener) => listener());
-      }
-
-      if (event === 'remove') {
-        removeEventListeners.forEach((listener) => listener());
-      }
-    });
-
     const notification = {
       id: 1,
       payload: 'Notification',
     };
 
-    notifier.subscribe('remove', removeListener);
+    notifier.subscribe('remove', () => {});
     notifier.add(notification);
 
-    expect(removeListener).not.toHaveBeenCalled();
+    expect(eventEmitterMock.emit).not.toHaveBeenCalledWith('remove');
 
     jest.runAllTimers();
 
-    expect(removeListener).toHaveBeenCalledTimes(1);
+    expect(eventEmitterMock.emit).toHaveBeenCalledWith('remove');
   });
 
   it('should pick new notification from queue when remove notification', () => {
@@ -448,5 +434,21 @@ describe('Notifier', () => {
       options: { ...defaultOptions, autoRemoveTimeout: 7000 },
       info: { timer: new Timekeeper(eventEmitterMock, 5000) },
     });
+  });
+
+  it('should create independent timer for each notification', () => {
+    const [first, second] = generateNotificationsWithPayload(2);
+
+    notifier.add(first);
+
+    jest.advanceTimersByTime(100);
+
+    notifier.add(second);
+
+    jest.advanceTimersByTime(100);
+
+    expect(notifier.notifications[0].info.timer?.timeLeft).not.toBe(
+      notifier.notifications[1].info.timer?.timeLeft,
+    );
   });
 });
