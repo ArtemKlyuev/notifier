@@ -1,7 +1,7 @@
 import React from 'react';
 import { LaunchedNotification } from '@notifier/core';
 
-import { useNotifierTimer } from './hooks';
+import { useNotifierTimer } from '../../hooks';
 
 interface Notification<Payload> {
   notification: LaunchedNotification<Payload>;

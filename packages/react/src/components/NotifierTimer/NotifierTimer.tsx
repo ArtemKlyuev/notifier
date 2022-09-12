@@ -1,6 +1,6 @@
 import { LaunchedNotification } from '@notifier/core';
 
-import { useNotifierTimer } from './hooks';
+import { useNotifierTimer } from '../../hooks';
 
 interface Props<Payload> {
   children: (time?: number) => React.ReactElement;
