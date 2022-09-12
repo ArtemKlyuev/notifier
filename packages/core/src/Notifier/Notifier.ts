@@ -153,11 +153,11 @@ export class Informer<Payload> implements Notifier<Payload> {
     }
   };
 
-  subscribe(event: NotificationEvent, handler: Handler): Disposer {
+  subscribe = (event: NotificationEvent, handler: Handler): Disposer => {
     const disposer = this.#eventEmitter.subscribe(event, handler);
 
     return disposer;
-  }
+  };
 
   get notifications(): LaunchedNotification<Payload>[] {
     return this.#notifications;
