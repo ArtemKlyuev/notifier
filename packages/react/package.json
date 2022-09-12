@@ -10,7 +10,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "ts-node esbuild.config.ts --swc"
+    "build": "ts-node esbuild.config.ts --swc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
     "@notifier/core": "*",
