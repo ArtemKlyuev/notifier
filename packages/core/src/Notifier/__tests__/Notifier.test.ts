@@ -1,6 +1,7 @@
+import { EventBus } from '../../EventEmitter';
 import { eventEmitterMock } from '../../EventEmitter/__mocks__';
 
-import { Timekeeper } from '../../Timer';
+import { Timekeeper, createTimer } from '../../Timer';
 
 import { Informer, DEFAULT_OPTIONS } from '../Notifier';
 import { Notifier, PreparedNotification } from '../types';
@@ -21,7 +22,7 @@ describe('Notifier', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    notifier = new Informer(eventEmitterMock, Timekeeper);
+    notifier = new Informer(eventEmitterMock, createTimer(EventBus));
   });
 
   afterEach(() => {
@@ -29,7 +30,7 @@ describe('Notifier', () => {
   });
 
   it('should set default options', () => {
-    notifier = new Informer(eventEmitterMock, Timekeeper);
+    notifier = new Informer(eventEmitterMock, createTimer(EventBus));
 
     expect(notifier.options).toStrictEqual(DEFAULT_OPTIONS);
   });
@@ -41,7 +42,7 @@ describe('Notifier', () => {
       size: 7,
     };
 
-    notifier = new Informer(eventEmitterMock, Timekeeper, constructorOptions);
+    notifier = new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions);
 
     expect(notifier.options).toStrictEqual({ ...DEFAULT_OPTIONS, ...constructorOptions });
   });
@@ -53,7 +54,9 @@ describe('Notifier', () => {
       size: 7,
     };
 
-    expect(() => new Informer(eventEmitterMock, Timekeeper, constructorOptions)).toThrowError();
+    expect(
+      () => new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions),
+    ).toThrowError();
   });
 
   it('should throw when set "autoRemove" and "persist" to "false"', () => {
@@ -63,7 +66,9 @@ describe('Notifier', () => {
       size: 7,
     };
 
-    expect(() => new Informer(eventEmitterMock, Timekeeper, constructorOptions)).toThrowError();
+    expect(
+      () => new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions),
+    ).toThrowError();
   });
 
   it('should set options', () => {
@@ -116,7 +121,18 @@ describe('Notifier', () => {
     });
   });
 
-  it('should emit "add" event when push notification', () => {
+  it('should emit "add" event when push notification happened', () => {
+    const notification = { id: 1, payload: 'Notification' };
+    const addListener = jest.fn();
+
+    expect(eventEmitterMock.emit).not.toHaveBeenCalled();
+    notifier.subscribe('add', addListener);
+    notifier.add(notification);
+    expect(eventEmitterMock.emit).toHaveBeenCalledTimes(1);
+    expect(eventEmitterMock.emit).toBeCalledWith('add');
+  });
+
+  it('should emit "add" event listener when push notification happened', () => {
     const notification = { id: 1, payload: 'Notification' };
     const addListener = jest.fn();
 
@@ -365,7 +381,7 @@ describe('Notifier', () => {
       size: 5,
     };
 
-    notifier = new Informer(eventEmitterMock, Timekeeper, constructorOptions);
+    notifier = new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions);
 
     const { size, ...defaultOptions } = DEFAULT_OPTIONS;
     const notification = { id: 1, payload: 'Notification', options: { autoRemove: true } };
@@ -403,7 +419,7 @@ describe('Notifier', () => {
       size: 5,
     };
 
-    notifier = new Informer(eventEmitterMock, Timekeeper, constructorOptions);
+    notifier = new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions);
 
     const { size, ...defaultOptions } = DEFAULT_OPTIONS;
     const notification = { id: 1, payload: 'Notification', options: { persist: false } };
