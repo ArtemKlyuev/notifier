@@ -18,6 +18,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "build": "ts-node esbuild.config.ts --swc",
+    "typecheck": "tsc --pretty --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "yarn test --coverage"
