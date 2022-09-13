@@ -13,6 +13,18 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
+  overrides: [
+    {
+      files: ['packages/react/*'],
+      extends: [
+        'eslint:recommended',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:prettier/recommended',
+      ],
+    },
+  ],
   rules: {
     '@typescript-eslint/ban-ts-comment': [
       'error',
