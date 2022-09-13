@@ -28,6 +28,7 @@ export const useNotifier = <Payload>(): Notifier<Payload> => {
     notifier.setOptions(options);
 
     if (areEqualObjects(options, notifier.options)) {
+      /* istanbul ignore next */
       return;
     }
 
