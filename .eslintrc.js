@@ -6,7 +6,11 @@ module.exports = {
     es2022: true,
     jest: true,
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   rules: {

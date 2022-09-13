@@ -7,6 +7,7 @@
     "packages/*"
   ],
   "scripts": {
+    "add:root": "yarn add -W -D -E",
     "cm": "./node_modules/cz-customizable/standalone.js",
     "package:core": "yarn workspace @notifier/core",
     "package:react": "yarn workspace @notifier/react"
@@ -17,6 +18,8 @@
     "@typescript-eslint/parser": "5.37.0",
     "cz-customizable": "7.0.0",
     "eslint": "8.23.1",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1",
     "lerna": "5.5.1",
     "prettier": "2.7.1",
     "typescript": "4.8.2"
