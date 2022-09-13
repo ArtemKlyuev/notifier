@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+
 import { eventEmitterMock } from '../../EventEmitter/__mocks__';
 
 import { Timer, TimerEvents, Timekeeper } from '../Timer';

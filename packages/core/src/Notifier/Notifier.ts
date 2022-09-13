@@ -79,6 +79,7 @@ export class Informer<Payload> implements Notifier<Payload> {
   }
 
   #getLaunchedNotificationOptions(notificatonOptions?: Partial<BaseOptions>): BaseOptions {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { size, ...options } = this.#options;
 
     if (!notificatonOptions) {

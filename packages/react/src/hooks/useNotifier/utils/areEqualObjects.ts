@@ -11,7 +11,7 @@ export const areEqualObjects = <T1 extends object, T2 extends object>(
 
   for (const key of keys1) {
     const val1 = obj1[key];
-    // @ts-expect-error
+    // @ts-expect-error ts(2536) we assume that `obj1` and `obj2` has the same keys
     const val2 = obj2[key];
 
     if (val1 !== val2) {

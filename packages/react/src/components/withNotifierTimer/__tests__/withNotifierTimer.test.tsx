@@ -14,6 +14,8 @@ describe('withNotifierTimer', () => {
         notification={{
           id: 1,
           payload: 'Notification',
+          // we don't need actual `subscribe` implementation
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           info: { timer: { subscribe: () => {}, timeLeft: 5000 } },
         }}
       />,

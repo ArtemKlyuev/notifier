@@ -16,6 +16,6 @@ export const withNotifierTimer =
   ({ notification, ...props }: Props & Notification<Payload>): React.ReactElement => {
     const time = useNotifierTimer(notification);
 
-    // @ts-expect-error
+    // @ts-expect-error ts(2322) type of props are related
     return <WrappedComponent time={time} {...props} />;
   };

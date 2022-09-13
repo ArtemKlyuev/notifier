@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { EventBus } from '../../EventEmitter';
 import { eventEmitterMock } from '../../EventEmitter/__mocks__';
 
