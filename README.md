@@ -60,6 +60,7 @@ pre-commit hooks set up thanks to [sudo-suhas](https://github.com/sudo-suhas)
 and his [lint-staged-multi-pkg project](https://github.com/sudo-suhas/lint-staged-multi-pkg) repo
 
 helpful `lerna` options:
+
 https://github.com/lerna/lerna/tree/main/core/global-options#--concurrency
 
 https://github.com/lerna/lerna/tree/main/core/filter-options#--since-ref
