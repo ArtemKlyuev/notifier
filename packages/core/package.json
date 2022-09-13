@@ -3,10 +3,23 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": "true",
+  "author": "Artem Klyuev",
+  "description": "Zero dependencies platform and framework agnostic engine that helps you build your own notifications system.",
+  "keywords": [
+    "notifications",
+    "notifier",
+    "toast",
+    "low-level",
+    "framework-agnostic"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ArtemKlyuev/notifier.git",
     "directory": "packages/core"
+  },
+  "homepage": "https://github.com/ArtemKlyuev/notifier/packages/core",
+  "bugs": {
+    "url": "https://github.com/ArtemKlyuev/notifier/issues"
   },
   "sideEffects": false,
   "main": "dist/cjs/index.js",
