@@ -4,5 +4,5 @@ dist
 .DS_Store
 .env
 .env.*
-examples
+examples/react
 coverage
