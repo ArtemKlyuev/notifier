@@ -3,14 +3,10 @@ import fs from 'node:fs/promises';
 import { build, BuildOptions } from 'esbuild';
 import { dTSPathAliasPlugin } from 'esbuild-plugin-d-ts-path-alias';
 
-import { devDependencies } from './package.json';
-
 const DIST_DIR = 'dist';
-const EXTERNAL_PACKAGES = Object.keys(devDependencies);
 
 const baseOptions: BuildOptions = {
   target: 'es2019',
-  external: EXTERNAL_PACKAGES,
   entryPoints: ['./src/index.ts'],
   bundle: true,
   treeShaking: true,
