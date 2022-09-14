@@ -40,7 +40,6 @@ describe('Notifier', () => {
   it('should merge constructor options with default options', () => {
     const constructorOptions = {
       autoRemove: false,
-      persist: true,
       size: 7,
     };
 
@@ -49,34 +48,9 @@ describe('Notifier', () => {
     expect(notifier.options).toStrictEqual({ ...DEFAULT_OPTIONS, ...constructorOptions });
   });
 
-  it('should throw when set "autoRemove" and "persist" to "true"', () => {
-    const constructorOptions = {
-      autoRemove: true,
-      persist: true,
-      size: 7,
-    };
-
-    expect(
-      () => new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions),
-    ).toThrowError();
-  });
-
-  it('should throw when set "autoRemove" and "persist" to "false"', () => {
-    const constructorOptions = {
-      autoRemove: false,
-      persist: false,
-      size: 7,
-    };
-
-    expect(
-      () => new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions),
-    ).toThrowError();
-  });
-
   it('should set options', () => {
     const newOptions = {
       autoRemove: false,
-      persist: true,
       size: 7,
     };
 
@@ -85,16 +59,6 @@ describe('Notifier', () => {
     notifier.setOptions(newOptions);
 
     expect(notifier.options).toStrictEqual({ ...DEFAULT_OPTIONS, ...newOptions });
-  });
-
-  it('should throw when set invalid options', () => {
-    const newOptions = {
-      autoRemove: false,
-      persist: false,
-      size: 7,
-    };
-
-    expect(() => notifier.setOptions(newOptions)).toThrow();
   });
 
   it('should add notification', () => {
@@ -117,7 +81,6 @@ describe('Notifier', () => {
       options: {
         autoRemove: true,
         autoRemoveTimeout: 5000,
-        persist: false,
       },
       info: { timer: new Timekeeper(eventEmitterMock, 5000) },
     });
@@ -191,16 +154,6 @@ describe('Notifier', () => {
     notifications.forEach((notification) => notifier.add(notification));
 
     expect(notifier.notifications).toHaveLength(size);
-  });
-
-  it('should validate added notification options', () => {
-    const notification = {
-      id: 1,
-      payload: 'Notification',
-      options: { autoRemove: true, persist: true },
-    };
-
-    expect(() => notifier.add(notification)).toThrow();
   });
 
   it('should manually remove notification', () => {
@@ -341,7 +294,6 @@ describe('Notifier', () => {
       options: {
         autoRemove: true,
         autoRemoveTimeout: 5000,
-        persist: false,
       },
       info: { timer: new Timekeeper(eventEmitterMock, 5000) },
     });
@@ -357,7 +309,7 @@ describe('Notifier', () => {
 
     expect(addedNotification).toStrictEqual({
       ...notification,
-      options: { ...defaultOptions, autoRemove: false, persist: true },
+      options: { ...defaultOptions, autoRemove: false },
       info: { timer: null },
     });
   });
@@ -365,7 +317,6 @@ describe('Notifier', () => {
   it('should set notification "autoRemove" option to "true"', () => {
     const constructorOptions = {
       autoRemove: false,
-      persist: true,
       size: 5,
     };
 
@@ -380,45 +331,7 @@ describe('Notifier', () => {
 
     expect(addedNotification).toStrictEqual({
       ...notification,
-      options: { ...defaultOptions, autoRemove: true, persist: false },
-      info: { timer: new Timekeeper(eventEmitterMock, 5000) },
-    });
-  });
-
-  it('should set notification "persist" option to "true"', () => {
-    const { size, ...defaultOptions } = DEFAULT_OPTIONS;
-    const notification = { id: 1, payload: 'Notification', options: { persist: true } };
-
-    notifier.add(notification);
-
-    const [addedNotification] = notifier.notifications;
-
-    expect(addedNotification).toStrictEqual({
-      ...notification,
-      options: { ...defaultOptions, autoRemove: false, persist: true },
-      info: { timer: null },
-    });
-  });
-
-  it('should set notification "persist" option to "false"', () => {
-    const constructorOptions = {
-      autoRemove: false,
-      persist: true,
-      size: 5,
-    };
-
-    notifier = new Informer(eventEmitterMock, createTimer(EventBus), constructorOptions);
-
-    const { size, ...defaultOptions } = DEFAULT_OPTIONS;
-    const notification = { id: 1, payload: 'Notification', options: { persist: false } };
-
-    notifier.add(notification);
-
-    const [addedNotification] = notifier.notifications;
-
-    expect(addedNotification).toStrictEqual({
-      ...notification,
-      options: { ...defaultOptions, autoRemove: true, persist: false },
+      options: { ...defaultOptions, autoRemove: true },
       info: { timer: new Timekeeper(eventEmitterMock, 5000) },
     });
   });
