@@ -104,13 +104,13 @@ with the folowing properties:
 - `id` - id that you passed to notification in [`add`](#add) method
 - `payload` - payload that you passed to notification in [`add`](#add) method
 - `options` - options that are specific to this particular notification
-- `info` - additional data about your notification, contains a countdown timer for removing your notification if the following options were passed to the factory function or the notification option in the [`add`](#add) method: `autoRemove: true` and `autoRemoveTimeout` with any number.
+- `info` - additional data about your notification, contains a countdown timer for removing your notification if the following options were passed to the factory function or the notification option in the [`add`](#add) method: [`autoRemove: true`](#autoremove) and [`autoRemoveTimeout`](#autoremovetimeout) with any number.
 
 ### Remove notification
 
-Usually, notifications have the `autoRemove` option set to `true` as well as `autoRemoveTimeout`,
-but if you wanna manually remove some notification use [`remove`](#remove) method and
-pass notification id to it:
+Usually, notifications have the [`autoRemove`](#autoremove) option set to `true` as well
+as [`autoRemoveTimeout`](#autoremovetimeout), but if you wanna manually remove some
+notification use [`remove`](#remove) method and pass notification id to it:
 
 ```ts
 const notification = { id: nanoid(), payload: { titile: 'Notification', body: 'Hello world!' } };
@@ -127,8 +127,8 @@ Remove notification(automatically or manually) will trigger `remove` event.
 ### Queue
 
 If the number of added notifications exceeds the number that was specified in the option
-`size` when creating the instance, then they will be added to the queue. You can manage
-size of the displayed notifications by passed `size` options to factory function or
+[`size`](#size) when creating the instance, then they will be added to the queue. You can manage
+size of the displayed notifications by passed [`size`](#size) option to factory function or
 [`setOptions`](#setoptions) method.
 
 ```ts
