@@ -19,7 +19,6 @@ export interface LaunchedNotification<Payload> extends BaseNotification<Payload>
 export interface BaseOptions {
   autoRemove: boolean;
   autoRemoveTimeout: number;
-  persist: boolean;
 }
 
 export interface Options extends BaseOptions {

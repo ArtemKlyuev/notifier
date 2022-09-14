@@ -15,7 +15,6 @@ export const DEFAULT_OPTIONS: Options = {
   autoRemove: true,
   autoRemoveTimeout: 5000,
   size: 5,
-  persist: false,
 };
 
 type TimerFactory = (timeout: number) => Timer<TimerEvents>;
@@ -32,10 +31,6 @@ export class Informer<Payload> implements Notifier<Payload> {
     timerFactory: TimerFactory,
     options?: Partial<Options>,
   ) {
-    if (options) {
-      this.#validateOptions(options);
-    }
-
     this.#eventEmitter = eventEmitter;
     this.#timerFactory = timerFactory;
 
@@ -44,26 +39,6 @@ export class Informer<Payload> implements Notifier<Payload> {
 
   get #isNotificationsFilled(): boolean {
     return this.#notifications.length === this.#options.size;
-  }
-
-  #isBoolean(value: any): value is boolean {
-    return typeof value === 'boolean';
-  }
-
-  // TODO: Split method into `isValid` and `Validate`
-  #validateOptions(options: Partial<Options>): void {
-    if (options.autoRemove && options.persist) {
-      throw new Error('Notifier: Unable to use "autoRemove" and "persist" options together');
-    }
-
-    if (
-      this.#isBoolean(options.autoRemove) &&
-      this.#isBoolean(options.persist) &&
-      !options.autoRemove &&
-      !options.persist
-    ) {
-      throw new Error('Notifier: Options "autoRemove" and "persist" can\'t be both "false"');
-    }
   }
 
   #mergeOptions(prevOptions: Options, newOptions?: Partial<Options>): Options {
@@ -86,22 +61,6 @@ export class Informer<Payload> implements Notifier<Payload> {
       return options;
     }
 
-    if (notificatonOptions.autoRemove) {
-      return { ...options, ...notificatonOptions, persist: false };
-    }
-
-    if (this.#isBoolean(notificatonOptions.autoRemove) && !notificatonOptions.autoRemove) {
-      return { ...options, ...notificatonOptions, persist: true };
-    }
-
-    if (notificatonOptions.persist) {
-      return { ...options, ...notificatonOptions, autoRemove: false };
-    }
-
-    if (this.#isBoolean(notificatonOptions.persist) && !notificatonOptions.persist) {
-      return { ...options, ...notificatonOptions, autoRemove: true };
-    }
-
     return { ...options, ...notificatonOptions };
   }
 
@@ -120,16 +79,10 @@ export class Informer<Payload> implements Notifier<Payload> {
   }
 
   setOptions = (options: Partial<Options>): void => {
-    this.#validateOptions(options);
-
     this.#options = this.#mergeOptions(this.#options, options);
   };
 
   add = (notification: PreparedNotification<Payload>): void => {
-    if (notification.options) {
-      this.#validateOptions(notification.options);
-    }
-
     if (this.#isNotificationsFilled) {
       this.#queue.push(notification);
       return;
