@@ -35,6 +35,7 @@
 }
 
 .Timeline {
+  width: 100%;
   background-image: linear-gradient(130deg, #00b4e6, #00f0e0);
   height: 5px;
 }

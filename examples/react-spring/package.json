@@ -1,12 +1,11 @@
 {
-  "name": "react-spring",
+  "name": "@notifier/react-react-spring",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@notifier/core": "file:../../packages/core",
     "@notifier/react": "file:../../packages/react",
     "@react-spring/web": "9.5.4",
-    "@types/node": "16.7.13",
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",
     "lorem-ipsum": "2.0.8",

@@ -1,6 +1,7 @@
 import { NotifierProvider, useCreateNotifier } from '@notifier/react';
 import { loremIpsum } from 'lorem-ipsum';
 import { nanoid } from 'nanoid';
+
 import './App.css';
 
 import { NotificationsContainer } from './components';
