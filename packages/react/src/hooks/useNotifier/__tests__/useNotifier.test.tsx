@@ -29,7 +29,6 @@ describe('useNotifier', () => {
     expect(result.current.options).toStrictEqual<Options>({
       autoRemove: true,
       autoRemoveTimeout: 5000,
-      persist: false,
       size: 5,
     });
   });
@@ -40,7 +39,6 @@ describe('useNotifier', () => {
     expect(result.current.options).toStrictEqual<Options>({
       autoRemove: true,
       autoRemoveTimeout: 5000,
-      persist: false,
       size: 5,
     });
 
@@ -51,7 +49,6 @@ describe('useNotifier', () => {
     expect(result.current.options).toStrictEqual<Options>({
       autoRemove: true,
       autoRemoveTimeout: 5000,
-      persist: false,
       size: 6,
     });
   });
