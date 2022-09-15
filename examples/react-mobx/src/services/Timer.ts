@@ -1,4 +1,4 @@
-import { Timer, TimerEvents } from '@notifier/core';
+import { Timer, TimerEvents } from '@notifierjs/core';
 import { makeAutoObservable } from 'mobx';
 
 const timerEvents: TimerEvents[] = ['start', 'tick', 'pause', 'end'];

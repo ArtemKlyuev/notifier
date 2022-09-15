@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Notifier } from '@notifier/core';
+import { Notifier } from '@notifierjs/core';
 
 import { NotifierContext } from '../../Context';
 

@@ -1,4 +1,4 @@
-import { useNotifier, NotifierTimer } from '@notifier/react';
+import { useNotifier, NotifierTimer } from '@notifierjs/react';
 import { useTransition } from '@react-spring/web';
 import { useMemo } from 'react';
 

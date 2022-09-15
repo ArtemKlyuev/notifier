@@ -1,6 +1,6 @@
-# @notifier/react
+# @notifierjs/react
 
-[`@notifier/core`](../core) binding for [`react`](https://github.com/facebook/react)
+[`@notifierjs/core`](../core) binding for [`react`](https://github.com/facebook/react)
 
 ## Table of contents
 
@@ -21,19 +21,19 @@
 
 ## Installation
 
-`@notifier/react` required [`@notifier/core`](../core) as a peer dependency, make sure to
+`@notifierjs/react` required [`@notifierjs/core`](../core) as a peer dependency, make sure to
 install it.
 
 Using npm:
 
 ```sh
-npm install @notifier/core @notifier/react
+npm install @notifierjs/core @notifierjs/react
 ```
 
 Using yarn:
 
 ```sh
-yarn add @notifier/core @notifier/react
+yarn add @notifierjs/core @notifierjs/react
 ```
 
 ## Usage
@@ -41,7 +41,7 @@ yarn add @notifier/core @notifier/react
 First of all we need to create a [`Notifier`](../core/src/Notifier/types.ts#L42) instance. For that use [`useCreateNotifier`](#usecreatenotifier) hook.
 
 ```ts
-import { useCreateNotifier } from '@notifier/react';
+import { useCreateNotifier } from '@notifierjs/react';
 
 const notifier = useCreateNotifier();
 ```
@@ -50,7 +50,7 @@ Next you should wrap your app(or part of it) with [`NotifierProvider`](#notifier
 and pass `Notifier` instance to it.
 
 ```tsx
-import { NotifierProvider, useCreateNotifier } from '@notifier/react';
+import { NotifierProvider, useCreateNotifier } from '@notifierjs/react';
 
 import { App } from './App';
 
@@ -70,7 +70,7 @@ displayed, you can get notifier instance passed to provider by using
 [`useNotifier`](#usenotifier) hook. For handling timer here we use [`NotifierTimer`](#notifiertimer) component:
 
 ```tsx
-import { useNotifier, NotifierTimer } from '@notifier/react';
+import { useNotifier, NotifierTimer } from '@notifierjs/react';
 
 import { Notification } from './Notification';
 
@@ -113,7 +113,7 @@ Check out [examples](../../examples) folder for more complete examples!
 
 ## State managers
 
-Check [this](../../examples/react-mobx) exmaples to see how to connect [`@notifier/core`](../core) with [`mobx`](https://github.com/mobxjs/mobx) state manager.
+Check [this](../../examples/react-mobx) exmaples to see how to connect [`@notifierjs/core`](../core) with [`mobx`](https://github.com/mobxjs/mobx) state manager.
 
 ## Hooks
 
@@ -124,7 +124,7 @@ Create memoized instance of [`Notifier`](../core/src/Notifier/types.ts#L42) inte
 Can receive optional object with [`options`](../core/src/Notifier/types.ts#L30) relative to [`Notifier`](../core/src/Notifier/types.ts#L42)
 
 ```tsx
-import { useCreateNotifier } from '@notifier/react';
+import { useCreateNotifier } from '@notifierjs/react';
 
 export const App = () => {
   const notifier = useCreateNotifier();
@@ -140,7 +140,7 @@ export const App = () => {
 Returns current context value.
 
 ```tsx
-import { useNotifierContext } from '@notifier/react';
+import { useNotifierContext } from '@notifierjs/react';
 
 export const App = () => {
   const notifier = useNotifierContext();
@@ -156,7 +156,7 @@ export const App = () => {
 Returns binded to react [`Notifier`](../core/src/Notifier/types.ts#L42) instance.
 
 ```tsx
-import { useNotifier, NotifierTimer } from '@notifier/react';
+import { useNotifier, NotifierTimer } from '@notifierjs/react';
 
 import { Notification } from './Notification';
 
@@ -190,8 +190,8 @@ export const NotificationsContainer = () => {
 Receiving notification with a timer as input, returns its binded to react value.
 
 ```tsx
-import { LaunchedNotification } from '@notifier/core';
-import { useNotifierTimer } from '@notifier/react';
+import { LaunchedNotification } from '@notifierjs/core';
+import { useNotifierTimer } from '@notifierjs/react';
 
 interface Props<Payload> {
   children: (time?: number) => React.ReactElement;
@@ -224,7 +224,7 @@ create notification progress bar.
 | `notification` | [`LaunchedNotification<Payload>[]`](,,/core/src/Notifier/types.ts#L12) | yes      | —       |
 
 ```tsx
-import { useNotifier, NotifierTimer } from '@notifier/react';
+import { useNotifier, NotifierTimer } from '@notifierjs/react';
 
 import { Notification } from './Notification';
 
@@ -267,7 +267,7 @@ should receive `time` prop with type `number | undefined`.
 And other props that your wrapped component receive.
 
 ```tsx
-import { useNotifier, withNotifierTimer } from '@notifier/react';
+import { useNotifier, withNotifierTimer } from '@notifierjs/react';
 
 import { Notification } from './Notification';
 

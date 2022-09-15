@@ -1,5 +1,5 @@
 {
-  "name": "@notifier/core-react-transition-group",
+  "name": "@notifierjs/core-react-transition-group",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,8 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@notifier/core": "file:../../packages/core",
-    "@notifier/react": "file:../../packages/react",
+    "@notifierjs/core": "file:../../packages/core",
+    "@notifierjs/react": "file:../../packages/react",
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",
     "lorem-ipsum": "2.0.8",

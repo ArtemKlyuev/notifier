@@ -1,4 +1,4 @@
-import { NotifierProvider, useCreateNotifier } from '@notifier/react';
+import { NotifierProvider, useCreateNotifier } from '@notifierjs/react';
 import { loremIpsum } from 'lorem-ipsum';
 import { nanoid } from 'nanoid';
 import './App.css';

@@ -1,4 +1,4 @@
-import { createNotifier, Options } from '@notifier/core';
+import { createNotifier, Options } from '@notifierjs/core';
 import { renderHook } from '@testing-library/react';
 
 import { useCreateNotifier } from '../useCreateNotifier';

@@ -1,4 +1,4 @@
-import { createNotifier, LaunchedNotification, PreparedNotification } from '@notifier/core';
+import { createNotifier, LaunchedNotification, PreparedNotification } from '@notifierjs/core';
 import { makeAutoObservable } from 'mobx';
 
 import { TimerManager } from './Timer';

@@ -1,4 +1,4 @@
-# @notifier/core
+# @notifierjs/core
 
 Zero dependencies platform and framework agnostic engine that helps you build your own
 notifications system.
@@ -25,13 +25,13 @@ notifications system.
 Using npm:
 
 ```sh
-npm install @notifier/core
+npm install @notifierjs/core
 ```
 
 Using yarn:
 
 ```sh
-yarn add @notifier/core
+yarn add @notifierjs/core
 ```
 
 ## Usage
@@ -42,7 +42,7 @@ Library exports a single `createNotifier` factory function which return to you i
 [`Notifier`](/packages/core/src/Notifier/types.ts#L42) interface.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier();
 ```
@@ -50,7 +50,7 @@ const notifier = createNotifier();
 Optionally you can pass some options to it(you can view list of all available options [here](#options)):
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier({ autoRemoveTimeout: 7000 });
 ```
@@ -132,7 +132,7 @@ size of the displayed notifications by passed [`size`](#size) option to factory 
 [`setOptions`](#setoptions) method.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier({ size: 3 });
 
@@ -154,7 +154,7 @@ Or by calling [`setOptions`](#setoptions) method on the
 [`Notifier`](/packages/core/src/Notifier/types.ts#L42) instance
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier();
 
@@ -211,7 +211,7 @@ Determines how many notifications can be displayed.
 Contains displayed notifications.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier<string>();
 
@@ -228,7 +228,7 @@ console.log(notifier.notifications); // [LaunchedNotification<string>, LaunchedN
 Contains setted options. Read more in [`options`](#options) section.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier<string>();
 
@@ -236,7 +236,7 @@ console.log(notifier.options); // { autoRemove: true, autoRemoveTimeout: 5000, s
 ```
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier<string>({ autoRemoveTimeout: 7000 });
 
@@ -250,7 +250,7 @@ console.log(notifier.options); // { autoRemove: true, autoRemoveTimeout: 7000, s
 Set options for the current instance.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier();
 
@@ -277,7 +277,7 @@ notifier.notifications.length; // 3
 Add notification.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier<string>();
 
@@ -295,7 +295,7 @@ notifier.notifications.length; // 1
 Remove notification.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier<string>();
 
@@ -317,7 +317,7 @@ notifier.notifications.length; // 0
 Subscribe to notifier events. Return disposer function to unsubscribe from event.
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier<string>();
 
@@ -339,7 +339,7 @@ notifier.remove(1);
 ```
 
 ```ts
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 
 const notifier = createNotifier<string>();
 

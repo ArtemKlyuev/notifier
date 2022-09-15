@@ -1,10 +1,10 @@
 {
-  "name": "@notifier/react",
+  "name": "@notifierjs/react",
   "version": "1.0.0",
   "license": "MIT",
   "author": "Artem Klyuev",
   "private": "true",
-  "description": "@notifier/core binding for React",
+  "description": "@notifierjs/core binding for React",
   "keywords": [
     "notifications",
     "notifier",
@@ -38,7 +38,7 @@
     "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "@notifier/core": "*",
+    "@notifierjs/core": "*",
     "react": ">=16.8.0"
   },
   "devDependencies": {

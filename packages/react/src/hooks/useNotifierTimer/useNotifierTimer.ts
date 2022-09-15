@@ -1,4 +1,4 @@
-import { LaunchedNotification, TimerEvents } from '@notifier/core';
+import { LaunchedNotification, TimerEvents } from '@notifierjs/core';
 import { useEffect, useState } from 'react';
 
 const events: TimerEvents[] = ['start', 'tick', 'pause', 'end'];

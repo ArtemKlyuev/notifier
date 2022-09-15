@@ -1,5 +1,5 @@
 import React from 'react';
-import { LaunchedNotification } from '@notifier/core';
+import { LaunchedNotification } from '@notifierjs/core';
 
 import { useNotifierTimer } from '../../hooks';
 

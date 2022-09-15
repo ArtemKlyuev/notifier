@@ -1,5 +1,5 @@
 import React from 'react';
-import { createNotifier } from '@notifier/core';
+import { createNotifier } from '@notifierjs/core';
 import { renderHook } from '@testing-library/react';
 
 import { NotifierProvider } from '../../../Context';

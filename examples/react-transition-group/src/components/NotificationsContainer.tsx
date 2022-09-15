@@ -1,4 +1,4 @@
-import { useNotifier, NotifierTimer } from '@notifier/react';
+import { useNotifier, NotifierTimer } from '@notifierjs/react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { Notification } from './Notification';

@@ -1,5 +1,5 @@
 {
-  "name": "@notifier/monorepo",
+  "name": "@notifierjs/monorepo",
   "version": "0.0.0",
   "license": "MIT",
   "private": "true",
@@ -13,8 +13,8 @@
     "lint:fix": "yarn lint:js --fix --no-error-on-unmatched-pattern",
     "cm": "./node_modules/cz-customizable/standalone.js",
     "prepare": "husky install",
-    "package:core": "yarn workspace @notifier/core",
-    "package:react": "yarn workspace @notifier/react"
+    "package:core": "yarn workspace @notifierjs/core",
+    "package:react": "yarn workspace @notifierjs/react"
   },
   "devDependencies": {
     "@swc/core": "1.3.0",

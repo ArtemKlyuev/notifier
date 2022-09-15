@@ -1527,10 +1527,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@notifier/core@file:../../packages/core":
+"@notifierjs/core@file:../../packages/core":
   version "0.0.0"
 
-"@notifier/react@file:../../packages/react":
+"@notifierjs/react@file:../../packages/react":
   version "0.0.0"
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":

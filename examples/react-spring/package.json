@@ -1,10 +1,10 @@
 {
-  "name": "@notifier/react-react-spring",
+  "name": "@notifierjs/react-react-spring",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@notifier/core": "file:../../packages/core",
-    "@notifier/react": "file:../../packages/react",
+    "@notifierjs/core": "file:../../packages/core",
+    "@notifierjs/react": "file:../../packages/react",
     "@react-spring/web": "9.5.4",
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",

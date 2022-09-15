@@ -19,9 +19,9 @@ Notifier is a low-level engine to create and manage your app notifications. It's
 
 This repository is a monorepo containing the following packages:
 
-- [`@notifier/core`](/packages/core) — platform and framework agnostic engine that
+- [`@notifierjs/core`](/packages/core) — platform and framework agnostic engine that
   helps you build your own notifications system
-- [`@notifier/react`](/packages/react) — [`@notifier/core`](/packages/core) binding for [`react`](https://github.com/facebook/react)
+- [`@notifierjs/react`](/packages/react) — [`@notifierjs/core`](/packages/core) binding for [`react`](https://github.com/facebook/react)
 
 ## Changes
 
@@ -51,8 +51,8 @@ List of available scripts to run from the project root:
 - `lint` — lint all files with [`eslint`](https://eslint.org/)
 - `lint:fix` — fix all problematic files with [`eslint`](https://eslint.org/)
 - `cm` — launch commit workflow with [`commitizen`](https://github.com/commitizen/cz-cli)
-- `package:core` — launch any command from the [`@notifier/core`](/packages/core) package root
-- `package:react` — launch any command from the [`@notifier/react`](/packages/react) package root
+- `package:core` — launch any command from the [`@notifierjs/core`](/packages/core) package root
+- `package:react` — launch any command from the [`@notifierjs/react`](/packages/react) package root
 
 ### pre-commit hook
 

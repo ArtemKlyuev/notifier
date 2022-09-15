@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LaunchedNotification, NotificationEvent, Notifier, Options } from '@notifier/core';
+import { LaunchedNotification, NotificationEvent, Notifier, Options } from '@notifierjs/core';
 
 import { useNotifierContext } from '../useContext';
 import { areEqualObjects } from './utils';
