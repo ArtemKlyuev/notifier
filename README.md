@@ -1,6 +1,6 @@
 # Notifier
 
-A low-level engine to create notifications.
+A low-level engine to manage notifications.
 
 Notifier is a low-level engine to create and manage your app notifications. It's supposed to be used on the frontend, but you're not limited by the platform anyway.
 
@@ -19,9 +19,9 @@ Notifier is a low-level engine to create and manage your app notifications. It's
 
 This repository is a monorepo containing the following packages:
 
-- [`@notifier/core`](/packages/core) - platform and framework agnostic engine that
+- [`@notifier/core`](/packages/core) — platform and framework agnostic engine that
   helps you build your own notifications system
-- [`@notifier/react`](/packages/react) - [`@notifier/core`](/packages/core) binding for [`react`](https://github.com/facebook/react)
+- [`@notifier/react`](/packages/react) — [`@notifier/core`](/packages/core) binding for [`react`](https://github.com/facebook/react)
 
 ## Changes
 
