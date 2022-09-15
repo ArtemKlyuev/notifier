@@ -21,7 +21,7 @@
 
 ## Installation
 
-`@notifier/react` need as a peer dependency [`@notifier/core`](../core), make sure to
+`@notifier/react` required [`@notifier/core`](../core) as a peer dependency, make sure to
 install it.
 
 Using npm:
@@ -121,6 +121,8 @@ Check [this](../../examples/react-mobx) exmaples to see how to connect [`@notifi
 
 Create memoized instance of [`Notifier`](../core/src/Notifier/types.ts#L42) interface.
 
+Can receive optional object with [`options`](../core/src/Notifier/types.ts#L30) relative to [`Notifier`](../core/src/Notifier/types.ts#L42)
+
 ```tsx
 import { useCreateNotifier } from '@notifier/react';
 
@@ -185,7 +187,7 @@ export const NotificationsContainer = () => {
 
 ### useNotifierTimer
 
-Receiving notification with a timer as input, returns its binded to react value
+Receiving notification with a timer as input, returns its binded to react value.
 
 ```tsx
 import { LaunchedNotification } from '@notifier/core';
