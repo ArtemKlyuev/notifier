@@ -1,0 +1,48 @@
+.Container {
+  position: fixed;
+  z-index: 1000;
+  width: 0 auto;
+  bottom: 30px;
+  display: flex;
+  gap: 10px;
+  margin: 0 auto;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.notifications {
+  --padding: 10px;
+  --notification-transform-x: calc(100% + var(--padding));
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 10px;
+  justify-items: end;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.notifier_animation_enter {
+  transform: translateX(var(--notification-transform-x));
+}
+
+.notifier_animation_enter_active {
+  transition: transform 200ms ease-in-out;
+  transform: translateX(0);
+}
+
+.notifier_animation_exit {
+  transform: translateX(0);
+}
+
+.notifier_animation_exit_active {
+  transition: transform 200ms ease-in-out;
+  transform: translateX(var(--notification-transform-x));
+}
