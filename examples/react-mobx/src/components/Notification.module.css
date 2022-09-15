@@ -1,0 +1,41 @@
+.Wrapper {
+  color: white;
+  background: #445159;
+  opacity: 0.9;
+  border-radius: 3px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  width: 40ch;
+}
+
+.Content {
+  padding: 12px 22px;
+  font-size: 1em;
+}
+
+.Button {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-self: flex-end;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.Button:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.Timeline {
+  width: 100%;
+  background-image: linear-gradient(130deg, #00b4e6, #00f0e0);
+  height: 5px;
+}
