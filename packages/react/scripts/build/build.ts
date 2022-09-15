@@ -1,9 +1,10 @@
 import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import { build, BuildOptions } from 'esbuild';
 import { dTSPathAliasPlugin } from 'esbuild-plugin-d-ts-path-alias';
 
-import { devDependencies, peerDependencies } from './package.json';
+import { devDependencies, peerDependencies } from '../../package.json';
 
 const DIST_DIR = 'dist';
 const EXTERNAL_PACKAGES = Object.keys({ ...devDependencies, ...peerDependencies });
@@ -29,11 +30,23 @@ const start = async (): Promise<void> => {
     plugins: [dTSPathAliasPlugin({ outputPath: `${DIST_DIR}/typings`, debug: true })],
   });
 
-  build({
+  await build({
     ...baseOptions,
     format: 'cjs',
-    outdir: `${DIST_DIR}/cjs`,
+    outfile: `${DIST_DIR}/cjs/notifier-react.development.js`,
   });
+
+  await build({
+    ...baseOptions,
+    format: 'cjs',
+    minify: true,
+    outfile: `${DIST_DIR}/cjs/notifier-react.production.min.js`,
+  });
+
+  await fs.copyFile(
+    path.resolve(__dirname, './index-cjs.build.js'),
+    path.resolve(process.cwd(), `${DIST_DIR}/cjs/index.js`),
+  );
 };
 
 start();

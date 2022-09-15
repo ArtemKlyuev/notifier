@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "precommit": "lint-staged",
-    "build": "ts-node esbuild.config.ts --swc",
+    "build": "ts-node scripts/build/build.ts --swc",
     "typecheck": "tsc --pretty --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
