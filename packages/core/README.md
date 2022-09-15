@@ -39,7 +39,7 @@ yarn add @notifier/core
 ### Creation
 
 Library exports a single `createNotifier` factory function which return to you instance of
-[`Notifier`](/packages/core/src/Notifier/types.ts#L34) interface.
+[`Notifier`](/packages/core/src/Notifier/types.ts#L42) interface.
 
 ```ts
 import { createNotifier } from '@notifier/core';
@@ -151,7 +151,7 @@ notifier.notifications.length; // 3
 ```
 
 Or by calling [`setOptions`](#setoptions) method on the
-[`Notifier`](/packages/core/src/Notifier/types.ts#L34) instance
+[`Notifier`](/packages/core/src/Notifier/types.ts#L42) instance
 
 ```ts
 import { createNotifier } from '@notifier/core';
