@@ -1,5 +1,9 @@
 # @notifierjs/react
 
+![npm (scoped)](https://img.shields.io/npm/v/@notifierjs/react?style=for-the-badge)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@notifierjs/react?style=for-the-badge)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge)](http://commitizen.github.io/cz-cli/)
+
 [`@notifierjs/core`](../core) binding for [`react`](https://github.com/facebook/react)
 
 ## Table of contents
