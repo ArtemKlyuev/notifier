@@ -8,7 +8,8 @@
   "command": {
     "version": {
       "allowBranch": "main",
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "createRelease": "github"
     }
   },
   "changelogPreset": {
