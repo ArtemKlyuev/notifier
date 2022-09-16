@@ -1,4 +1,6 @@
-# Notifier
+<h1 align="center">Notifier</h1>
+
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge)](http://commitizen.github.io/cz-cli/)
 
 A low-level engine to manage notifications.
 
@@ -23,15 +25,15 @@ This repository is a monorepo containing the following packages:
   helps you build your own notifications system
 - [`@notifierjs/react`](/packages/react) — [`@notifierjs/core`](/packages/core) binding for [`react`](https://github.com/facebook/react)
 
-## Changes
-
-Detailed release notes for a given version can be found [on a releases page](https://github.com/ArtemKlyuev/notifier/releases).
-
 ## Examples
 
 Check [live demo](https://codesandbox.io/s/notifierjs-react-react-spring-example-q6o1u3?file=/src/App.tsx)
 
 Check out [`examples`](/examples) folder for more usage examples.
+
+## Changes
+
+Detailed release notes for a given version can be found [on a releases page](https://github.com/ArtemKlyuev/notifier/releases).
 
 ## Maintaining
 
