@@ -1527,11 +1527,15 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@notifierjs/core@file:../../packages/core":
-  version "0.0.0"
+"@notifierjs/core@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@notifierjs/core/-/core-1.1.5.tgz#f4b1ad7d7974ce3a7cd63d1f35574ba2ca6a8f59"
+  integrity sha512-mvAc4JIIIlTwKewpkWL/5k5h1rK/F6YYfXje+BCZewF4vV+b33iL+L1X8ulgmx+9cOn7shf0JixDFobbmSYOVg==
 
-"@notifierjs/react@file:../../packages/react":
-  version "0.0.0"
+"@notifierjs/react@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@notifierjs/react/-/react-1.1.5.tgz#0b1ec29e467e674f97c981257c2bfba7deacb729"
+  integrity sha512-gpnaxoXgh5qs43WzsogxtothVMRTjiixMXkKpw+VHyJnjG65EvFvp/4DCmu+So/IR62gSKzENReIbfluNWGgGA==
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":
   version "0.5.7"
