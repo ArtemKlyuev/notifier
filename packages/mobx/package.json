@@ -1,0 +1,53 @@
+{
+  "name": "@notifierjs/mobx",
+  "version": "0.0.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Artem Klyuev",
+  "description": "mobx adapter for @notifierjs/core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArtemKlyuev/notifier.git",
+    "directory": "packages/mobx"
+  },
+  "homepage": "https://github.com/ArtemKlyuev/notifier/tree/main/packages/mobx",
+  "bugs": {
+    "url": "https://github.com/ArtemKlyuev/notifier/issues"
+  },
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "typings": "dist/typings/index.d.ts",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "precommit": "lint-staged",
+    "build": "ts-node scripts/build/build.ts --swc",
+    "typecheck": "tsc --pretty --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "yarn test --coverage"
+  },
+  "peerDependencies": {
+    "@notifierjs/core": "^1.1.4",
+    "mobx": "^6.0.3"
+  },
+  "devDependencies": {
+    "mobx": "6.6.2"
+  },
+  "keywords": [
+    "notifications",
+    "notifier",
+    "toast",
+    "low-level",
+    "framework-agnostic",
+    "mobx",
+    "mobx adapter",
+    "state management",
+    "observable"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "extends": "../common/tsconfig.base.json",
+  "include": ["src", "scripts"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "baseUrl": ".",
+    "importHelpers": false,
+    "esModuleInterop": true
+  }
+}
