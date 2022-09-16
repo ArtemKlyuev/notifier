@@ -41,7 +41,7 @@
     "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "@notifierjs/core": "*",
+    "@notifierjs/core": "^1.1.4",
     "react": ">=16.8.0"
   },
   "devDependencies": {
