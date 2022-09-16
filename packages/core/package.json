@@ -19,7 +19,7 @@
     "url": "https://github.com/ArtemKlyuev/notifier.git",
     "directory": "packages/core"
   },
-  "homepage": "https://github.com/ArtemKlyuev/notifier/packages/core",
+  "homepage": "https://github.com/ArtemKlyuev/notifier/tree/main/packages/core",
   "bugs": {
     "url": "https://github.com/ArtemKlyuev/notifier/issues"
   },
