@@ -28,7 +28,8 @@
   "typings": "dist/typings/index.d.ts",
   "module": "dist/esm/index.js",
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "precommit": "lint-staged",
