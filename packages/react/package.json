@@ -20,7 +20,7 @@
     "url": "https://github.com/ArtemKlyuev/notifier.git",
     "directory": "packages/react"
   },
-  "homepage": "https://github.com/ArtemKlyuev/notifier/packages/react",
+  "homepage": "https://github.com/ArtemKlyuev/notifier/tree/main/packages/react",
   "bugs": {
     "url": "https://github.com/ArtemKlyuev/notifier/issues"
   },
