@@ -9,8 +9,8 @@ Notifier is a low-level engine to create and manage your app notifications. It's
 ## Table of contents
 
 - [Packages](#packages)
-- [Changes](#changes)
 - [Examples](#examples)
+- [Changes](#changes)
 - [Maintaining](#maintaining)
   - [Package manager](#package-manager)
   - [Commits](#commits)
