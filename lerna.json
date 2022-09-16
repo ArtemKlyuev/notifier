@@ -23,7 +23,7 @@
       { "type": "feat", "section": "✨ Features ✨" },
       { "type": "fix", "section": "🐛 Bug fixes 🐛" },
       { "type": "docs", "section": "📖 Docs 📖" },
-      { "type": "deps", "hidden": true, "section": "💉 Dependencies 💉" },
+      { "type": "deps", "scope": "prod", "hidden": false, "section": "💉 Dependencies 💉" },
       { "type": "refactor", "hidden": true, "section": "🔧 Code refactoring 🔧" },
       { "type": "perf", "hidden": true, "section": "🚀 Perfomance 🚀" },
       { "type": "chore", "hidden": true },
