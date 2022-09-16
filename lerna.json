@@ -10,10 +10,10 @@
       "allowBranch": "main",
       "conventionalCommits": true,
       "createRelease": "github",
-      "message": "chore(release): version %s"
+      "message": "chore(release): version"
     },
     "publish": {
-      "message": "chore(release): publish %s",
+      "message": "chore(release): publish",
       "registry": "https://registry.npmjs.org/"
     }
   },
