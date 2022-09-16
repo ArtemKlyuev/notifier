@@ -29,6 +29,8 @@ Detailed release notes for a given version can be found [on a releases page](htt
 
 ## Examples
 
+Check [live demo](https://codesandbox.io/s/notifierjs-react-react-spring-example-q6o1u3?file=/src/App.tsx)
+
 Check out [`examples`](/examples) folder for more usage examples.
 
 ## Maintaining

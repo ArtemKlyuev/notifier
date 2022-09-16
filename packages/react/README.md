@@ -109,6 +109,8 @@ See complete working example [here](../../examples/react-spring)
 
 ## Examples
 
+Check [live demo](https://codesandbox.io/s/notifierjs-react-react-spring-example-q6o1u3?file=/src/App.tsx)
+
 Check out [examples](../../examples) folder for more complete examples!
 
 ## State managers
