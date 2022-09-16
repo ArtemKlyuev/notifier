@@ -1,0 +1,52 @@
+{
+  "name": "@notifierjs/effector",
+  "version": "0.0.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Artem Klyuev",
+  "description": "effector adapter for @notifierjs/effector",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArtemKlyuev/notifier.git",
+    "directory": "packages/effector"
+  },
+  "homepage": "https://github.com/ArtemKlyuev/notifier/tree/main/packages/effector",
+  "bugs": {
+    "url": "https://github.com/ArtemKlyuev/notifier/issues"
+  },
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "typings": "dist/typings/index.d.ts",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "precommit": "lint-staged",
+    "build": "ts-node scripts/build/build.ts --swc",
+    "typecheck": "tsc --pretty --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "yarn test --coverage"
+  },
+  "peerDependencies": {
+    "@notifierjs/core": "^1.1.4",
+    "effector": "*"
+  },
+  "keywords": [
+    "notifications",
+    "notifier",
+    "toast",
+    "low-level",
+    "framework-agnostic",
+    "adapter",
+    "effector",
+    "state management"
+  ],
+  "devDependencies": {
+    "effector": "22.3.0"
+  }
+}
