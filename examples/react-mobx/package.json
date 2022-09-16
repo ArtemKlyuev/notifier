@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@notifierjs/core": "file:../../packages/core",
+    "@notifierjs/core": "1.1.4",
     "@react-spring/web": "9.5.4",
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",

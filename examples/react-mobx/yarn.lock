@@ -1527,8 +1527,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@notifierjs/core@file:../../packages/core":
-  version "0.0.0"
+"@notifierjs/core@1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@notifierjs/core/-/core-1.1.4.tgz#8e8d6b211f7f5853324308c72f791cad782328da"
+  integrity sha512-iFVaJM8QDmZ/52HRC32MrhYFAvrnuBUROZv55myIvVa6f+uGBH61/tpmKXgxCru1v+okXItwAEbg8Ci6BuA+pg==
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":
   version "0.5.7"
