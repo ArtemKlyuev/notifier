@@ -9,7 +9,12 @@
     "version": {
       "allowBranch": "main",
       "conventionalCommits": true,
-      "createRelease": "github"
+      "createRelease": "github",
+      "message": "chore(release): version %s"
+    },
+    "publish": {
+      "message": "chore(release): publish %s",
+      "registry": "https://registry.npmjs.org/"
     }
   },
   "changelogPreset": {
