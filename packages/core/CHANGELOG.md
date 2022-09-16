@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/ArtemKlyuev/notifier/compare/@notifierjs/core@1.1.4...@notifierjs/core@1.1.5) (2022-09-16)
+
+
+### 🐛 Bug fixes 🐛
+
+* `package.json` `homepage` field ([8175888](https://github.com/ArtemKlyuev/notifier/commit/81758889ed8e379537962e98c8adf8358f5652e7))
+
+
+### 📖 Docs 📖
+
+* add `CHANGELOG` to published package ([ed3ce50](https://github.com/ArtemKlyuev/notifier/commit/ed3ce50d62f81c6435c3291bd00966f70340f6e2))
+
+
+
 ## [1.1.4](https://github.com/ArtemKlyuev/notifier/compare/@notifierjs/core@1.1.3...@notifierjs/core@1.1.4) (2022-09-16)
 
 **Note:** Version bump only for package @notifierjs/core

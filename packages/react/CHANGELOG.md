@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/ArtemKlyuev/notifier/compare/@notifierjs/react@1.1.4...@notifierjs/react@1.1.5) (2022-09-16)
+
+
+### 🐛 Bug fixes 🐛
+
+* `package.json` `homepage` field ([e1e23c3](https://github.com/ArtemKlyuev/notifier/commit/e1e23c3185f41ffcf6827b5d29a8c2da8921be65))
+
+
+### 📖 Docs 📖
+
+* add `CHANGELOG` to published package ([2d96dfc](https://github.com/ArtemKlyuev/notifier/commit/2d96dfc878f8e088ba4524f2c0106ee6b64382de))
+
+
+### 💉 Dependencies 💉
+
+* **prod:** set required `@notifierjs/core` version ([ab9daf9](https://github.com/ArtemKlyuev/notifier/commit/ab9daf9bb7d891aed5c5ddf06b181c75963cae4a))
+
+
+
 ## [1.1.4](https://github.com/ArtemKlyuev/notifier/compare/@notifierjs/react@1.1.3...@notifierjs/react@1.1.4) (2022-09-16)
 
 **Note:** Version bump only for package @notifierjs/react
