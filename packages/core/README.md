@@ -1,7 +1,7 @@
 # @notifierjs/core
 
-![npm (scoped)](https://img.shields.io/npm/v/@notifierjs/core?style=for-the-badge)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@notifierjs/core?style=for-the-badge)
+[![npm (scoped)](https://img.shields.io/npm/v/@notifierjs/core?style=for-the-badge)](https://www.npmjs.com/package/@notifierjs/core)
+[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@notifierjs/core?style=for-the-badge)](https://bundlephobia.com/package/@notifierjs/core)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge)](http://commitizen.github.io/cz-cli/)
 
 Zero dependencies platform and framework agnostic engine that helps you build your own
