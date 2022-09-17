@@ -119,7 +119,7 @@ Check out [examples](../../examples) folder for more complete examples!
 
 ## State managers
 
-Check [this](../../examples/react-mobx) exmaples to see how to connect [`@notifierjs/core`](../core) with [`mobx`](https://github.com/mobxjs/mobx) state manager.
+Check [this](../../examples/react-mobx) example to see how to connect [`@notifierjs/core`](../core) with [`mobx`](https://github.com/mobxjs/mobx) state manager.
 
 ## Hooks
 
