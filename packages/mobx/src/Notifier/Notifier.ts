@@ -14,10 +14,11 @@ import { ObservableTimer } from '../Timer';
 
 export class ObservableNotifier<Payload> implements Notifier<Payload> {
   private notifierNotifications: LaunchedNotification<Payload>[] = [];
-  private readonly notifier = createNotifier<Payload>();
+  private readonly notifier: Notifier<Payload>;
   private observableOptions: Options;
 
-  constructor() {
+  constructor(options?: Partial<Options>) {
+    this.notifier = createNotifier<Payload>(options);
     this.observableOptions = this.notifier.options;
     this.notifier.subscribe('add', () => this.updateNotifications());
     this.notifier.subscribe('remove', () => this.updateNotifications());
