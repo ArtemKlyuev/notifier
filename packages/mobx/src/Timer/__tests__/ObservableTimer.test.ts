@@ -2,9 +2,9 @@
 
 import { Timer, TimerEvents } from '@notifierjs/core';
 
-import { CoreTimerMock } from '../__mocks__';
-
 import { ObservableTimer } from '../Timer';
+
+jest.mock('mobx');
 
 const COUNTDOWN_TIME = 1000;
 
@@ -13,23 +13,18 @@ describe('ObservableTimer', () => {
 
   let observableTimer: Timer<TimerEvents>;
   let coreTimerMock: Timer<TimerEvents>;
-  // let coreTimerMock: Timer<TimerEvents> = CoreTimerMock(COUNTDOWN_TIME);
 
   beforeEach(() => {
     jest.clearAllMocks();
 
-    CoreTimerMock.mockClear();
+    coreTimerMock = jest.fn<Timer<TimerEvents>, any>((timeLeft: number) => ({
+      start: jest.fn(),
+      pause: jest.fn(),
+      clear: jest.fn(),
+      subscribe: () => () => {},
+      timeLeft,
+    }))(COUNTDOWN_TIME);
 
-    // coreTimerMock?.clearAllMocks;
-
-    coreTimerMock = CoreTimerMock(COUNTDOWN_TIME);
-    // coreTimerMock = jest.fn<Timer<TimerEvents>, any>().mockImplementation((timeLeft: number) => ({
-    //   start: jest.fn(),
-    //   pause: jest.fn(),
-    //   clear: jest.fn(),
-    //   subscribe: jest.fn(),
-    //   timeLeft,
-    // }))(COUNTDOWN_TIME);
     observableTimer = new ObservableTimer(coreTimerMock);
   });
 
@@ -50,43 +45,47 @@ describe('ObservableTimer', () => {
   });
 
   it('should subscribe to "start" events', () => {
+    const spy = jest.spyOn(coreTimerMock, 'subscribe');
     const listener = jest.fn();
 
-    expect(coreTimerMock.subscribe).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
     observableTimer.subscribe('start', listener);
 
-    expect(coreTimerMock.subscribe).toHaveBeenCalledTimes(1);
-    expect(coreTimerMock.subscribe).toBeCalledWith('start', listener);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toBeCalledWith('start', listener);
   });
 
   it('should subscribe to "pause" events', () => {
+    const spy = jest.spyOn(coreTimerMock, 'subscribe');
     const listener = jest.fn();
 
-    expect(coreTimerMock.subscribe).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
     observableTimer.subscribe('pause', listener);
 
-    expect(coreTimerMock.subscribe).toHaveBeenCalledTimes(1);
-    expect(coreTimerMock.subscribe).toBeCalledWith('pause', listener);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toBeCalledWith('pause', listener);
   });
 
   it('should subscribe to "tick" events', () => {
+    const spy = jest.spyOn(coreTimerMock, 'subscribe');
     const listener = jest.fn();
 
-    expect(coreTimerMock.subscribe).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
     observableTimer.subscribe('tick', listener);
 
-    expect(coreTimerMock.subscribe).toHaveBeenCalledTimes(1);
-    expect(coreTimerMock.subscribe).toBeCalledWith('tick', listener);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toBeCalledWith('tick', listener);
   });
 
   it('should subscribe to "end" events', () => {
+    const spy = jest.spyOn(coreTimerMock, 'subscribe');
     const listener = jest.fn();
 
-    expect(coreTimerMock.subscribe).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
     observableTimer.subscribe('end', listener);
 
-    expect(coreTimerMock.subscribe).toHaveBeenCalledTimes(1);
-    expect(coreTimerMock.subscribe).toBeCalledWith('end', listener);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toBeCalledWith('end', listener);
   });
 
   it('should clear timer', () => {
