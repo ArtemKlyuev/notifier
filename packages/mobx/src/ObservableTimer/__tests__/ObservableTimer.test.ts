@@ -2,7 +2,7 @@
 
 import { Timer, TimerEvents } from '@notifierjs/core';
 
-import { ObservableTimer } from '../Timer';
+import { ObservableTimer } from '../ObservableTimer';
 
 jest.mock('mobx');
 

@@ -10,7 +10,7 @@ import {
 } from '@notifierjs/core';
 import { makeAutoObservable } from 'mobx';
 
-import { ObservableTimer } from '../Timer';
+import { ObservableTimer } from '../ObservableTimer';
 
 export class ObservableNotifier<Payload> implements Notifier<Payload> {
   private notifierNotifications: LaunchedNotification<Payload>[] = [];
