@@ -1,6 +1,5 @@
 import {
   Notifier,
-  createNotifier,
   LaunchedNotification,
   PreparedNotification,
   Options,
@@ -12,16 +11,20 @@ import { makeAutoObservable } from 'mobx';
 
 import { ObservableTimer } from '../ObservableTimer';
 
-export class ObservableNotifier<Payload> implements Notifier<Payload> {
-  private notifierNotifications: LaunchedNotification<Payload>[] = [];
-  private readonly notifier: Notifier<Payload>;
-  private observableOptions: Options;
+export interface Destroyable {
+  destroy: () => void;
+}
 
-  constructor(options?: Partial<Options>) {
-    this.notifier = createNotifier<Payload>(options);
+export class ObservableNotifier<Payload> implements Notifier<Payload>, Destroyable {
+  private notifierNotifications: LaunchedNotification<Payload>[] = [];
+  private observableOptions: Options;
+  private readonly disposeAdd: Disposer;
+  private readonly disposeRemove: Disposer;
+
+  constructor(private readonly notifier: Notifier<Payload>) {
     this.observableOptions = this.notifier.options;
-    this.notifier.subscribe('add', () => this.updateNotifications());
-    this.notifier.subscribe('remove', () => this.updateNotifications());
+    this.disposeAdd = this.notifier.subscribe('add', () => this.updateNotifications());
+    this.disposeRemove = this.notifier.subscribe('remove', () => this.updateNotifications());
     makeAutoObservable(this);
   }
 
@@ -50,6 +53,11 @@ export class ObservableNotifier<Payload> implements Notifier<Payload> {
 
   subscribe(event: NotificationEvent, handler: Handler): Disposer {
     return this.notifier.subscribe(event, handler);
+  }
+
+  destroy(): void {
+    this.disposeAdd();
+    this.disposeRemove();
   }
 
   get options(): Options {
